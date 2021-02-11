@@ -13,10 +13,12 @@ const SignIn: FC = (props) => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  const loginHandler = (evt: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (evt: React.FormEvent<HTMLInputElement>) => {
     evt.preventDefault();
     console.log(userCredentials);
+    // TODO: Login to firebase
   };
+
   return (
     <div>
       <FormInput name="email" type="text" value={email} handleChange={handleChange} label="email"></FormInput>
@@ -27,10 +29,8 @@ const SignIn: FC = (props) => {
         value={password}
         label="password"
       ></FormInput>
-      <input type="submit" value="submit" onClick={(evt) => loginHandler(evt)} />
-
+      <input type="submit" value="submit" onClick={(evt) => handleSubmit(evt)} />
       <button>google signin</button>
-
     </div>
   );
 };
