@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import FormInput from '../../components/form-input/form-input';
 
 const Login = () => {
   const [userCredentials, setUserCredentials] = useState({
@@ -18,22 +19,14 @@ const Login = () => {
   };
   return (
     <div>
-      <input
-        name="email"
-        type="text"
-        onChange={(evt) => {
-          handleChange(evt);
-        }}
-        value={email}
-      ></input>
-      <input
+      <FormInput name="email" type="text" value={email} handleChange={handleChange} label="email"></FormInput>
+      <FormInput
         name="password"
         type="password"
-        onChange={(evt) => {
-          handleChange(evt);
-        }}
+        handleChange={handleChange}
         value={password}
-      ></input>
+        label="password"
+      ></FormInput>
       <input type="submit" value="submit" onClick={(evt) => loginHandler(evt)} />
     </div>
   );
