@@ -1,7 +1,7 @@
 import { FormatInputPathObject } from 'path';
 import React, { FC } from 'react';
 
-interface Props {
+export interface FormInputProps {
   name: string;
   type: string;
   value: string;
@@ -9,7 +9,7 @@ interface Props {
   handleChange: (evt: React.ChangeEvent) => void;
 }
 
-const FormInput: FC<Props> = ({ handleChange, label, ...props }) => {
+const FormInput: FC<FormInputProps> = ({ handleChange, label, ...props }) => {
   return (
     <div>
       <input {...props} onChange={(evt) => handleChange(evt)}></input>
