@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+import { auth } from 'src/firebase/firebase.utils';
 import FormInput from '../form-input/form-input';
 
 const SignIn: FC = (props) => {
@@ -13,10 +14,14 @@ const SignIn: FC = (props) => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  const handleSubmit = (evt: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = async (evt: React.FormEvent<HTMLInputElement>) => {
     evt.preventDefault();
     console.log(userCredentials);
     // TODO: Login to firebase
+    // const { user } = await auth.signInWithEmailAndPassword(email,password);
+    const { user } = await auth.signInWithEmailAndPassword('test@gmail.com', 'aaaaaa');
+    console.log(user);
+    
   };
 
   return (
