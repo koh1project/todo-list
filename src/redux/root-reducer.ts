@@ -10,8 +10,10 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  // TODO: put some reducers from /user/user.reducer, /todo/todo.reducer
   user: userReducer,
 });
 
+
+// @FIX: <any, any>を設定するとstore.tsのエラーは消える
+//export default persistReducer<any, any>(persistConfig, rootReducer);
 export default persistReducer(persistConfig, rootReducer);
