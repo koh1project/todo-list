@@ -1,4 +1,3 @@
-import { FormatInputPathObject } from 'path';
 import React, { FC } from 'react';
 
 export interface FormInputProps {
@@ -17,4 +16,5 @@ const FormInput: FC<FormInputProps> = ({ handleChange, label, ...props }) => {
     </div>
   );
 };
+
 export default FormInput;
