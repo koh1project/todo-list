@@ -19,7 +19,8 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "allowSyntheticDefaultImports": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "incremental": true
   },
   "exclude": [
     "node_modules",
