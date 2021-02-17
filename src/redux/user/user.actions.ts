@@ -1,6 +1,5 @@
+import { ValueOf } from './../redux.utils';
 import { UserActionTypes } from './user.types';
-
-type ValueOf<T> = T[keyof T];
 
 export type UserAction = {
   type: ValueOf<typeof UserActionTypes>;
