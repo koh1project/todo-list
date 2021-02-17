@@ -25,10 +25,11 @@
   "exclude": [
     "node_modules",
     ".next",
-    "out"
+    "out",
+    "build",
+    "scripts"
   ],
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.js"
