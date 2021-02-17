@@ -1,10 +1,8 @@
 import React, { FC, useState } from 'react';
-import { auth } from 'src/firebase/firebase.utils';
+import { auth } from 'firebase/firebase.utils';
 import FormInput from '../form-input/form-input';
 import { setCurrentUser } from '../../redux/user/user.actions';
-import { UserState } from 'src/redux/user/user.reducer';
 import { useDispatch } from 'react-redux';
-import { UserActionTypes } from 'src/redux/user/user.types';
 
 const SignIn: FC = (props) => {
   const dispatch = useDispatch();
