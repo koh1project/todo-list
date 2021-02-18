@@ -12,6 +12,4 @@ const rootReducer = combineReducers({
   user: userReducer
 });
 
-// @FIX: <any, any>を設定するとstore.tsのエラーは消える
-export default persistReducer<any, any>(persistConfig, rootReducer);
-//export default persistReducer(persistConfig, rootReducer);
+export default persistReducer(persistConfig, rootReducer);

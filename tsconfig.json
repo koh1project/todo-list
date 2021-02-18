@@ -20,7 +20,11 @@
     "baseUrl": "src",
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
-    "incremental": true
+    "incremental": true,
+    "typeRoots": [
+      "./node_modules/@types/",
+      "./src/@types"
+    ]
   },
   "exclude": [
     "node_modules",
@@ -33,5 +37,5 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.js"
-  ]
+  ],
 }
