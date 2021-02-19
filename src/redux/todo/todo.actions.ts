@@ -15,7 +15,7 @@ export type Todo = {
 
 export type TodoAction = {
   type: ValueOf<typeof TodoActionTypes>;
-  payload: Todo | string;
+  payload: Todo;
 };
 
 export const addTodo = (todo: Todo): TodoAction => ({
