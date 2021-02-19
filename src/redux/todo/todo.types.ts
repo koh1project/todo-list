@@ -5,4 +5,4 @@ export const TodoActionTypes = {
   ADD_TODO_ITEM: 'ADD_TODO_ITEM',
   DELETE_TODO_ITEM: 'DELETE_TODO_ITEM',
   CHANGE_TODO_ITEM: 'CHANGE_TODO_ITEM'
-};
+} as const;
