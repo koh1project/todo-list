@@ -7,12 +7,15 @@ import { firestore } from 'firebase/firebase.utils';
 import { Todo } from 'redux/todo/todo.actions';
 import firebase from 'firebase';
 import { addTodo } from 'redux/todo/todo.actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'redux/root-reducer';
 
 const App = () => {
   // TODO: テストデータ
   const userId = 'xTbimz0MSPLPw5xnKEe5';
-  const [todos, setTodos] = useState<Todo[]>([]);
+
+  const storedTodos = useSelector((state: RootState) => state.todo.todos);
+
   useEffect(() => {
     const todosRef = firestore.collection('users').doc(userId);
     // todosRef.get().then((doc) => {setTodos(doc.data()!.todos);console.log(doc.data()!.todos);});
@@ -22,9 +25,7 @@ const App = () => {
 
   // TODO: add test
   useEffect(() => {
-    console.log(todos.length);
-
-    if (todos.length <= 0) {
+    if (storedTodos.length <= 0) {
       return;
     }
     const todoItem: Todo = {
@@ -36,9 +37,10 @@ const App = () => {
     };
     // firestore.collection('users').doc(userId).set({ todos: [...todos, todoItem] }).then(() => {console.log(`Add`);});
     return () => {};
-  }, [todos]);
+  }, [storedTodos]);
 
   const dispatch = useDispatch();
+
   const TimestampNow = firebase.firestore.Timestamp.now();
   const [todo, setTodo] = useState<Todo>({
     id: '',
@@ -65,14 +67,13 @@ const App = () => {
     <div className="App">
       <h1>TEST</h1>
       <Route path={'/login'} component={Login} />
-      {/* Todo input */}
       <form>
         <input type="text" name="description" id="description" onChange={(evt) => handleChange(evt)} />
         <input type="datetime" name="dueDate" id="dueDate" />
         <input type="submit" value="Submit" onClick={(evt) => handleSubmit(evt)} />
       </form>
-      {todos.map((todo) => (
-        <div>{todo.description}</div>
+      {storedTodos.map((todo) => (
+        <div key={todo.description}>{todo.description}</div>
       ))}
     </div>
   );
