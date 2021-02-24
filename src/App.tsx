@@ -9,6 +9,7 @@ import firebase from 'firebase';
 import { addTodo } from 'redux/todo/todo.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/root-reducer';
+import { TodoContainer } from 'containers/todoContainer/todoContainer';
 
 const App = () => {
   // TODO: テストデータ
@@ -72,9 +73,7 @@ const App = () => {
         <input type="datetime" name="dueDate" id="dueDate" />
         <input type="submit" value="Submit" onClick={(evt) => handleSubmit(evt)} />
       </form>
-      {storedTodos.map((todo) => (
-        <div key={todo.description}>{todo.description}</div>
-      ))}
+      <TodoContainer todos={storedTodos} />
     </div>
   );
 };
