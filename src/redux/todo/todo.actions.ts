@@ -22,3 +22,8 @@ export const addTodo = (todo: Todo): TodoAction => ({
   type: TodoActionTypes.ADD_TODO_ITEM,
   payload: todo
 });
+
+export const deleteTodo = (todo: Todo): TodoAction => ({
+  type: TodoActionTypes.DELETE_TODO_ITEM,
+  payload: todo
+});

@@ -16,6 +16,12 @@ export const todoReducer: Reducer<TodoState, TodoAction> = (
         ...state,
         todos: [...state.todos, action.payload]
       };
+    case TodoActionTypes.DELETE_TODO_ITEM:
+      console.log(action.payload.id);
+      return {
+        ...state,
+        todos: state.todos.slice().filter((todo) => todo.id !== action.payload.id)
+      };
     default:
       return state;
   }

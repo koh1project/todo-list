@@ -53,7 +53,12 @@ const App = () => {
 
   const handleSubmit = (evt: React.FormEvent<HTMLInputElement>) => {
     evt.preventDefault();
-    dispatch(addTodo(todo));
+    const newTodo: Todo = {
+      ...todo,
+      id: todo.description + new Date().getMilliseconds()
+    };
+
+    dispatch(addTodo(newTodo));
   };
 
   const handleChange = (evt: any) => {
