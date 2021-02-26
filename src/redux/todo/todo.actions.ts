@@ -1,8 +1,8 @@
 import { ValueOf } from 'redux/redux.utils';
 import { TodoActionTypes } from 'redux/todo/todo.types';
 
-import * as firebase from 'firebase/app';
-type Timestamp = firebase.default.firestore.Timestamp;
+import firebase from 'firebase';
+type Timestamp = firebase.firestore.Timestamp;
 
 export type Todo = {
   id: string;
