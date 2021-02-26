@@ -75,7 +75,7 @@ const App = () => {
       <Route path={'/login'} component={Login} />
       <form>
         <input type="text" name="description" id="description" onChange={(evt) => handleChange(evt)} />
-        <input type="datetime" name="dueDate" id="dueDate" />
+        <input type="date" name="dueDate" id="dueDate" onChange={(evt) => handleChange(evt)} />
         <input type="submit" value="Submit" onClick={(evt) => handleSubmit(evt)} />
       </form>
       <TodoContainer todos={storedTodos} />

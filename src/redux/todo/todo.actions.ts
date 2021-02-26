@@ -9,8 +9,8 @@ export type Todo = {
   userId?: string;
   description: string;
   done: boolean;
-  dueDate: Timestamp;
-  createdAt: Timestamp;
+  dueDate: Timestamp | Date;
+  createdAt: Timestamp | Date;
 };
 
 export type TodoAction = {
