@@ -8,9 +8,9 @@ type Props = {
 
 export const TodoList: FC<Props> = ({ todos }) => {
   return (
-    <div key={Math.random()}>
+    <div>
       {todos.map((todo) => (
-        <TodoListItem todo={todo} />
+        <TodoListItem todo={todo} key={Math.random()} />
       ))}
     </div>
   );
