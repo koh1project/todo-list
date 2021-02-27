@@ -1,7 +1,10 @@
 import React, { FC, useState } from 'react';
 import { Todo } from 'redux/todo/todo.actions';
 
-import firebase from 'firebase';
+import DatePicker from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
+import FormInput from '../form-input/form-input';
 
 type Props = {
   todo: Todo;
@@ -15,46 +18,28 @@ const EventTargets = {
 
 export const EditableTodoListItem: FC<Props> = ({ todo, clicked }) => {
   const [description, setDescription] = useState<string>(todo.description);
-  const [dueDate, setDueDate] = useState<Date>(todo.dueDate as Date);
-
-  const handlerChange = (event: any) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    console.log(event.target);
-
-    switch (name) {
-      case EventTargets.dueDate:
-        setDueDate(value);
-        break;
-      case EventTargets.description:
-        setDescription(value);
-        break;
-      default:
-        break;
-    }
-  };
+  const [dueDate, setDueDate] = useState<Date>(new Date(todo.dueDate as Date));
 
   const handlerSubmit = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
     clicked(false);
   };
+  const handleChangeDescription = (event: any) => {
+    event.preventDefault();
+    setDescription(event.target.value);
+  };
 
   return (
-    <div key={Math.random()}>
+    <div key={todo.id}>
       <form>
-        <input
+        <FormInput
           type="text"
           name={EventTargets.description}
-          placeholder={todo.description}
-          onChange={(event) => handlerChange(event)}
-          value={todo.description}
+          handleChange={handleChangeDescription}
+          value={description}
         />
-        <input
-          type="date"
-          name={EventTargets.dueDate}
-          value={todo.dueDate.toString()}
-          onChange={(event) => handlerChange(event)}
-        />
+
+        <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
         <input type="submit" value="編集" onClick={(event) => handlerSubmit(event)} />
       </form>
     </div>
