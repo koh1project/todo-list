@@ -1,12 +1,11 @@
 import React, { FC, useState } from 'react';
 import { Todo } from 'redux/todo/todo.actions';
-import DatePicker from 'react-datepicker';
 
 import firebase from 'firebase';
-type Timestamp = firebase.firestore.Timestamp;
 
 type Props = {
   todo: Todo;
+  clicked: Function;
 };
 
 const EventTargets = {
@@ -14,7 +13,7 @@ const EventTargets = {
   description: 'description'
 } as const;
 
-export const EditableTodoListItem: FC<Props> = ({ todo }) => {
+export const EditableTodoListItem: FC<Props> = ({ todo, clicked }) => {
   const [description, setDescription] = useState<string>(todo.description);
   const [dueDate, setDueDate] = useState<Date>(todo.dueDate as Date);
 
@@ -35,6 +34,11 @@ export const EditableTodoListItem: FC<Props> = ({ todo }) => {
     }
   };
 
+  const handlerSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    clicked(false);
+  };
+
   return (
     <div key={Math.random()}>
       <form>
@@ -45,8 +49,13 @@ export const EditableTodoListItem: FC<Props> = ({ todo }) => {
           onChange={(event) => handlerChange(event)}
           value={todo.description}
         />
-        <input type="date" name={EventTargets.dueDate} value={todo.dueDate.toString()} />
-        <input type="submit" value="編集" />
+        <input
+          type="date"
+          name={EventTargets.dueDate}
+          value={todo.dueDate.toString()}
+          onChange={(event) => handlerChange(event)}
+        />
+        <input type="submit" value="編集" onClick={(event) => handlerSubmit(event)} />
       </form>
     </div>
   );

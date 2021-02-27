@@ -18,13 +18,17 @@ export const TodoListItem: FC<Props> = ({ todo }) => {
     setClicked(!clicked);
   };
 
+  // @FIX:
+  const dueDate = typeof todo.dueDate === 'string' ? todo.dueDate : new Date();
+  console.log(dueDate);
+
   const content = clicked ? (
-    <EditableTodoListItem todo={todo} />
+    <EditableTodoListItem todo={todo} clicked={setClicked} />
   ) : (
     <div key={Math.random()}>
       <input type="checkbox" onClick={() => dispatch(deleteTodo(todo))} />
       <span onClick={(evt) => handlerClicked(evt)}>
-        {todo.description} - {todo.dueDate}
+        {todo.description} - {dueDate.toString()}
       </span>
     </div>
   );
