@@ -9,8 +9,8 @@ export type Todo = {
   userId?: string;
   description: string;
   done: boolean;
-  dueDate: Timestamp | Date;
-  createdAt: Timestamp | Date;
+  dueDate: Date;
+  createdAt: Date;
 };
 
 export type TodoAction = {
@@ -25,5 +25,10 @@ export const addTodo = (todo: Todo): TodoAction => ({
 
 export const deleteTodo = (todo: Todo): TodoAction => ({
   type: TodoActionTypes.DELETE_TODO_ITEM,
+  payload: todo
+});
+
+export const editTodo = (todo: Todo): TodoAction => ({
+  type: TodoActionTypes.EDIT_TODO_ITEM,
   payload: todo
 });

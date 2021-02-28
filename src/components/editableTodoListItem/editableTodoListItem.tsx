@@ -1,10 +1,13 @@
 import React, { FC, useState } from 'react';
 import { Todo } from 'redux/todo/todo.actions';
+import { useDispatch } from 'react-redux';
 
+import { editTodo } from 'redux/todo/todo.actions';
 import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import FormInput from '../form-input/form-input';
+import { formattedDateString } from 'utils';
 
 type Props = {
   todo: Todo;
@@ -17,12 +20,20 @@ const EventTargets = {
 } as const;
 
 export const EditableTodoListItem: FC<Props> = ({ todo, clicked }) => {
+  const dispatch = useDispatch();
+
   const [description, setDescription] = useState<string>(todo.description);
   const [dueDate, setDueDate] = useState<Date>(new Date(todo.dueDate as Date));
 
-  const handlerSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
     clicked(false);
+    const newTodo = {
+      ...todo,
+      description: description,
+      dueDate: dueDate
+    };
+    dispatch(editTodo(newTodo));
   };
   const handleChangeDescription = (event: any) => {
     event.preventDefault();
@@ -40,7 +51,7 @@ export const EditableTodoListItem: FC<Props> = ({ todo, clicked }) => {
         />
 
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
-        <input type="submit" value="編集" onClick={(event) => handlerSubmit(event)} />
+        <input type="submit" value="編集" onClick={(event) => handleSubmit(event)} />
       </form>
     </div>
   );

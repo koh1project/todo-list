@@ -33,8 +33,8 @@ const App = () => {
       id: '333',
       description: 'ADDtest',
       done: false,
-      dueDate: firebase.firestore.Timestamp.now(),
-      createdAt: firebase.firestore.Timestamp.now()
+      dueDate: new Date(),
+      createdAt: new Date()
     };
     // firestore.collection('users').doc(userId).set({ todos: [...todos, todoItem] }).then(() => {console.log(`Add`);});
     return () => {};
@@ -42,12 +42,11 @@ const App = () => {
 
   const dispatch = useDispatch();
 
-  const TimestampNow = firebase.firestore.Timestamp.now();
   const [todo, setTodo] = useState<Todo>({
     id: '',
     description: '',
-    dueDate: TimestampNow,
-    createdAt: TimestampNow,
+    dueDate: new Date(),
+    createdAt: new Date(),
     done: false
   });
 

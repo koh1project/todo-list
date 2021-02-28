@@ -1,3 +1,4 @@
+import { EditableTodoListItem } from './../../components/editableTodoListItem/editableTodoListItem';
 import { Todo } from 'redux/todo/todo.actions';
 import { Reducer } from 'redux';
 import { TodoActionTypes } from './todo.types';
@@ -21,6 +22,12 @@ export const todoReducer: Reducer<TodoState, TodoAction> = (
       return {
         ...state,
         todos: state.todos.slice().filter((todo) => todo.id !== action.payload.id)
+      };
+    case TodoActionTypes.EDIT_TODO_ITEM:
+      const editedTodo = action.payload;
+      return {
+        ...state,
+        todos: state.todos.map((todo) => (todo.id === editedTodo.id ? editedTodo : todo))
       };
     default:
       return state;
