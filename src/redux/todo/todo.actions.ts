@@ -1,9 +1,6 @@
 import { ValueOf } from 'redux/redux.utils';
 import { TodoActionTypes } from 'redux/todo/todo.types';
 
-import firebase from 'firebase';
-type Timestamp = firebase.firestore.Timestamp;
-
 export type Todo = {
   id: string;
   userId?: string;

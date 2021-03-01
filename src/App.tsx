@@ -5,7 +5,6 @@ import Login from './pages/login/login';
 
 import { firestore } from 'firebase/firebase.utils';
 import { Todo } from 'redux/todo/todo.actions';
-import firebase from 'firebase';
 import { addTodo } from 'redux/todo/todo.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/root-reducer';

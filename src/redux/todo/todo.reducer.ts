@@ -1,4 +1,3 @@
-import { EditableTodoListItem } from './../../components/editableTodoListItem/editableTodoListItem';
 import { Todo } from 'redux/todo/todo.actions';
 import { Reducer } from 'redux';
 import { TodoActionTypes } from './todo.types';

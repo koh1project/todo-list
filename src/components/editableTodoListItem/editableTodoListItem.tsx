@@ -7,7 +7,6 @@ import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import FormInput from '../form-input/form-input';
-import { formattedDateString } from 'utils';
 
 type Props = {
   todo: Todo;
