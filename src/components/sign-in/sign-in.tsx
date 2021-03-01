@@ -1,10 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { VFC, useState } from 'react';
 import { auth } from 'firebase/firebase.utils';
 import FormInput from '../form-input/form-input';
 import { setCurrentUser } from '../../redux/user/user.actions';
 import { useDispatch } from 'react-redux';
 
-const SignIn: FC = (props) => {
+const SignIn: VFC = (props) => {
   const dispatch = useDispatch();
   const [userCredentials, setUserCredentials] = useState({
     email: '',

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { VFC, useState } from 'react';
 
 import { Todo } from 'redux/todo/todo.actions';
 import { deleteTodo } from 'redux/todo/todo.actions';
@@ -9,7 +9,7 @@ type Props = {
   todo: Todo;
 };
 
-export const TodoListItem: FC<Props> = ({ todo }) => {
+export const TodoListItem: VFC<Props> = ({ todo }) => {
   const dispatch = useDispatch();
   const [clicked, setClicked] = useState<boolean>(false);
 

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { VFC } from 'react';
 
 export interface FormInputProps {
   name: string;
@@ -8,7 +8,7 @@ export interface FormInputProps {
   handleChange: (evt: React.ChangeEvent) => void;
 }
 
-const FormInput: FC<FormInputProps> = ({ handleChange, label, ...props }) => {
+const FormInput: VFC<FormInputProps> = ({ handleChange, label, ...props }) => {
   return (
     <>
       <input {...props} onChange={(evt) => handleChange(evt)}></input>

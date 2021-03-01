@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { VFC, useState } from 'react';
 import { Todo } from 'redux/todo/todo.actions';
 import { useDispatch } from 'react-redux';
 
@@ -19,7 +19,7 @@ const EventTargets = {
   description: 'description'
 } as const;
 
-export const EditableTodoListItem: FC<Props> = ({ todo, clicked }) => {
+export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
   const dispatch = useDispatch();
 
   const [description, setDescription] = useState<string>(todo.description);
