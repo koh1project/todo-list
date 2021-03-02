@@ -26,6 +26,6 @@ export const deleteTodo = (todo: Todo): TodoAction => ({
 });
 
 export const editTodo = (todo: Todo): TodoAction => ({
-  type: TodoActionTypes.EDIT_TODO_ITEM,
+  type: TodoActionTypes.UPDATE_TODO_ITEM,
   payload: todo
 });

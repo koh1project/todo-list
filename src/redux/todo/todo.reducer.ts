@@ -22,7 +22,7 @@ export const todoReducer: Reducer<TodoState, TodoAction> = (
         ...state,
         todos: state.todos.slice().filter((todo) => todo.id !== action.payload.id)
       };
-    case TodoActionTypes.EDIT_TODO_ITEM:
+    case TodoActionTypes.UPDATE_TODO_ITEM:
       const editedTodo = action.payload;
       return {
         ...state,
