@@ -9,6 +9,9 @@ import { addTodo } from 'redux/todo/todo.actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'redux/root-reducer';
 import { TodoContainer } from 'containers/todoContainer/todoContainer';
+import { SubmitButton } from 'components/Button/SubmitButton';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const App = () => {
   // TODO: テストデータ
@@ -41,40 +44,36 @@ const App = () => {
 
   const dispatch = useDispatch();
 
-  const [todo, setTodo] = useState<Todo>({
-    id: '',
-    description: '',
-    dueDate: new Date(),
-    createdAt: new Date(),
-    done: false
-  });
-
   const handleSubmit = (evt: React.FormEvent<HTMLInputElement>) => {
     evt.preventDefault();
     const newTodo: Todo = {
-      ...todo,
-      id: todo.description + new Date().getMilliseconds()
+      id: description + new Date().getMilliseconds(),
+      description: description,
+      dueDate: dueDate,
+      done: false,
+      createdAt: new Date()
     };
 
     dispatch(addTodo(newTodo));
   };
 
-  const handleChange = (evt: any) => {
-    if (!evt) {
-      return;
-    }
-    const { name, value } = evt.target;
-    setTodo({ ...todo, [name]: value });
-  };
+  const [dueDate, setDueDate] = useState<Date>(new Date());
+  const [description, setDescription] = useState<string>('');
 
   return (
     <div className="App">
       <h1>TEST</h1>
       <Route path={'/login'} component={Login} />
       <form>
-        <input type="text" name="description" id="description" onChange={(evt) => handleChange(evt)} />
-        <input type="date" name="dueDate" id="dueDate" onChange={(evt) => handleChange(evt)} />
-        <input type="submit" value="Submit" onClick={(evt) => handleSubmit(evt)} />
+        <input
+          type="text"
+          name="description"
+          id="description"
+          onChange={(evt) => setDescription(evt.target.value)}
+          value={description}
+        />
+        <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
+        <SubmitButton handleSubmit={handleSubmit} />
       </form>
       <TodoContainer todos={storedTodos} />
     </div>

@@ -5,7 +5,8 @@ export interface FormInputProps {
   type: string;
   value: string;
   label?: string;
-  handleChange: (evt: React.ChangeEvent) => void;
+  // handleChange: (evt: React.ChangeEvent) => void;
+  handleChange: Function;
 }
 
 const FormInput: VFC<FormInputProps> = ({ handleChange, label, ...props }) => {

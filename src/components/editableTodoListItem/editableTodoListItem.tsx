@@ -3,10 +3,12 @@ import { Todo } from 'redux/todo/todo.actions';
 import { useDispatch } from 'react-redux';
 
 import { editTodo } from 'redux/todo/todo.actions';
-import DatePicker from 'react-datepicker';
 
+import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+
 import FormInput from '../form-input/form-input';
+import { SubmitButton } from 'components/Button/SubmitButton';
 
 type Props = {
   todo: Todo;
@@ -48,9 +50,8 @@ export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
           handleChange={handleChangeDescription}
           value={description}
         />
-
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
-        <input type="submit" value="編集" onClick={(event) => handleSubmit(event)} />
+        <SubmitButton handleSubmit={handleSubmit} />
       </form>
     </div>
   );
