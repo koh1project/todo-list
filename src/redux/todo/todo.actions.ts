@@ -1,7 +1,7 @@
-import { firestore } from './../../firebase/firebase.utils';
-import { type } from 'os';
+import { firestore, FirebaseDocumentDataType } from './../../firebase/firebase.utils';
 import { ValueOf } from 'redux/redux.utils';
 import { TodoActionTypes } from 'redux/todo/todo.types';
+import firebase from 'firebase';
 
 export type Todo = {
   id: string;
@@ -30,6 +30,22 @@ export const fetchTodoFailure = (errorMessage: string): TodoAction => ({
   type: TodoActionTypes.FETCH_TODOS_FAILURE,
   payload: errorMessage
 });
+
+export const fetchTodosStartAsync = (useId: string) => {
+  return (dispatch: Function) => {
+    const todosRef = firestore.collection('users').doc(useId);
+    dispatch(fetchTodoStart());
+
+    todosRef
+      .get()
+      .then((snapshot) => {
+        console.log(snapshot);
+        const todos = [] as Todo[];
+        return dispatch(fetchTodoSuccess(todos));
+      })
+      .catch((error: Error) => dispatch(fetchTodoFailure(error.message)));
+  };
+};
 
 export const addTodo = (todo: Todo): TodoAction => ({
   type: TodoActionTypes.ADD_TODO_ITEM,
