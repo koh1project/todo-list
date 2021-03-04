@@ -14,19 +14,18 @@ export const todoReducer: Reducer<TodoState, TodoAction> = (
     case TodoActionTypes.ADD_TODO_ITEM:
       return {
         ...state,
-        todos: [...state.todos, action.payload]
+        todos: [...state.todos, action.payload as Todo]
       };
     case TodoActionTypes.DELETE_TODO_ITEM:
-      console.log(action.payload.id);
       return {
         ...state,
-        todos: state.todos.slice().filter((todo) => todo.id !== action.payload.id)
+        todos: state.todos.slice().filter((todo) => todo.id !== (action.payload as Todo).id)
       };
     case TodoActionTypes.UPDATE_TODO_ITEM:
-      const editedTodo = action.payload;
+      const editedTodo = action.payload as Todo;
       return {
         ...state,
-        todos: state.todos.map((todo) => (todo.id === editedTodo.id ? editedTodo : todo))
+        todos: state.todos.map((todo) => (todo.id === editedTodo?.id ? editedTodo : todo))
       };
     default:
       return state;

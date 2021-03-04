@@ -19,10 +19,14 @@ export const TodoPage: VFC = () => {
   const userId = 'xTbimz0MSPLPw5xnKEe5';
 
   const storedTodos = useSelector((state: RootState) => state.todo.todos);
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   useEffect(() => {
     const todosRef = firestore.collection('users').doc(userId);
-    // todosRef.get().then((doc) => {setTodos(doc.data()!.todos);console.log(doc.data()!.todos);});
+    todosRef.get().then((doc) => {
+      setTodos(doc.data()!.todos);
+      console.log(doc.data()!.todos);
+    });
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -39,7 +43,14 @@ export const TodoPage: VFC = () => {
       dueDate: new Date(),
       createdAt: new Date()
     };
-    // firestore.collection('users').doc(userId).set({ todos: [...todos, todoItem] }).then(() => {console.log(`Add`);});
+
+    // firestore
+    //   .collection('users')
+    //   .doc(userId)
+    //   .set({ todos: [...todos, todoItem] })
+    //   .then(() => {
+    //     console.log(`Add`);
+    //   });
     return () => {};
   }, [storedTodos]);
 

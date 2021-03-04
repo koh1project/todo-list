@@ -1,3 +1,5 @@
+import { firestore } from './../../firebase/firebase.utils';
+import { type } from 'os';
 import { ValueOf } from 'redux/redux.utils';
 import { TodoActionTypes } from 'redux/todo/todo.types';
 
@@ -12,8 +14,22 @@ export type Todo = {
 
 export type TodoAction = {
   type: ValueOf<typeof TodoActionTypes>;
-  payload: Todo;
+  payload?: Todo | Todo[] | string;
 };
+
+export const fetchTodoStart = (): TodoAction => ({
+  type: TodoActionTypes.FETCH_TODOS_START
+});
+
+export const fetchTodoSuccess = (todos: Todo[]): TodoAction => ({
+  type: TodoActionTypes.FETCH_TODOS_SUCCESS,
+  payload: todos
+});
+
+export const fetchTodoFailure = (errorMessage: string): TodoAction => ({
+  type: TodoActionTypes.FETCH_TODOS_FAILURE,
+  payload: errorMessage
+});
 
 export const addTodo = (todo: Todo): TodoAction => ({
   type: TodoActionTypes.ADD_TODO_ITEM,
