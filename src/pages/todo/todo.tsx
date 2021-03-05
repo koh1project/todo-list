@@ -23,10 +23,10 @@ export const TodoPage: VFC = () => {
 
   useEffect(() => {
     const todosRef = firestore.collection('users').doc(userId);
-    todosRef.get().then((doc) => {
-      setTodos(doc.data()!.todos);
-      console.log(doc.data()!.todos);
-    });
+    // todosRef.get().then((doc) => {
+    //   setTodos(doc.data()!.todos);
+    //   console.log(doc.data()!.todos);
+    // });
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

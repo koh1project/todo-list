@@ -1,7 +1,8 @@
 import { TodoList } from 'components/todoList/todoList';
-import React, { VFC } from 'react';
+import React, { useEffect, VFC } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { Todo } from 'redux/todo/todo.actions';
+import { Todo, fetchTodosStartAsync } from 'redux/todo/todo.actions';
 
 export type Props = {
   todos: Todo[];
@@ -9,6 +10,14 @@ export type Props = {
 
 export const TodoContainer: VFC<Props> = (props) => {
   const { todos } = props;
+
+  const userId = 'xTbimz0MSPLPw5xnKEe5';
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTodosStartAsync(userId));
+    return () => {};
+  }, []);
 
   return (
     <div>
