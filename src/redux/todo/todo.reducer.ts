@@ -27,6 +27,8 @@ export const todoReducer: Reducer<TodoState, TodoAction> = (
         ...state,
         todos: state.todos.map((todo) => (todo.id === editedTodo?.id ? editedTodo : todo))
       };
+    case TodoActionTypes.FETCH_TODOS_SUCCESS:
+      return { ...state, todos: action.payload as Todo[] };
     default:
       return state;
   }

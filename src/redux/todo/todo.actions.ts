@@ -39,8 +39,7 @@ export const fetchTodosStartAsync = (useId: string) => {
     todosRef
       .get()
       .then((snapshot) => {
-        console.log(snapshot);
-        const todos = [] as Todo[];
+        const todos = snapshot.data()!.todos as Todo[];
         return dispatch(fetchTodoSuccess(todos));
       })
       .catch((error: Error) => dispatch(fetchTodoFailure(error.message)));
