@@ -12,6 +12,8 @@ export type Todo = {
   createdAt: Date;
 };
 
+export type TodoFirebase = Omit<Todo, 'dueDate'> & { dueDate: firebase.firestore.Timestamp };
+
 export type TodoAction = {
   type: ValueOf<typeof TodoActionTypes>;
   payload?: Todo | Todo[] | string;
@@ -39,7 +41,10 @@ export const fetchTodosStartAsync = (useId: string) => {
     todosRef
       .get()
       .then((snapshot) => {
-        const todos = snapshot.data()!.todos as Todo[];
+        const todos: Todo[] = (snapshot.data()!.todos as TodoFirebase[]).map((todo) => {
+          return { ...todo, dueDate: todo.dueDate.toDate() };
+        });
+
         return dispatch(fetchTodoSuccess(todos));
       })
       .catch((error: Error) => dispatch(fetchTodoFailure(error.message)));
