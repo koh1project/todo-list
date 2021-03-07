@@ -1,5 +1,5 @@
 import { TodoList } from 'components/todoList/todoList';
-import React, { useEffect, VFC } from 'react';
+import { useEffect, VFC } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Todo, fetchTodosStartAsync } from 'redux/todo/todo.actions';

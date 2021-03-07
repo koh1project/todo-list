@@ -1,4 +1,4 @@
-import { firestore, FirebaseDocumentDataType } from './../../firebase/firebase.utils';
+import { firestore } from './../../firebase/firebase.utils';
 import { ValueOf } from 'redux/redux.utils';
 import { TodoActionTypes } from 'redux/todo/todo.types';
 import firebase from 'firebase';
