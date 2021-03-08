@@ -29,6 +29,8 @@ export const todoReducer: Reducer<TodoState, TodoAction> = (
       };
     case TodoActionTypes.FETCH_TODOS_SUCCESS:
       return { ...state, todos: action.payload as Todo[] };
+    case TodoActionTypes.SYNC_TODOS:
+      return { ...state, todos: action.payload as Todo[] };
     default:
       return state;
   }

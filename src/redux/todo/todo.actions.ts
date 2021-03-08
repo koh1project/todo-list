@@ -65,3 +65,20 @@ export const editTodo = (todo: Todo): TodoAction => ({
   type: TodoActionTypes.UPDATE_TODO_ITEM,
   payload: todo
 });
+
+export const SyncTodo = (todos: Todo[]): TodoAction => ({
+  type: TodoActionTypes.SYNC_TODOS,
+  payload: todos
+});
+
+// @TODO: Add start
+// @TODO: Add success
+// @TODO: Add failure
+
+// @TODO: update start
+// @TODO: update success
+// @TODO: update failure
+
+// @TODO: delete start
+// @TODO: delete success
+// @TODO: delete failure
