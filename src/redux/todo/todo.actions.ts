@@ -56,6 +56,38 @@ export const addTodo = (todo: Todo): TodoAction => ({
   payload: todo
 });
 
+export const addTodoStart = (): TodoAction => ({
+  type: TodoActionTypes.ADD_TODO_START
+});
+
+export const addTodoSuccess = (todos: Todo[]): TodoAction => ({
+  type: TodoActionTypes.ADD_TODO_SUCCESS,
+  payload: todos
+});
+
+export const addTodoFailure = (errorMessage: string): TodoAction => ({
+  type: TodoActionTypes.ADD_TODO_FAILURE,
+  payload: errorMessage
+});
+
+export const addTodosStartAsync = (todos: Todo[], addedTodo: Todo, userId: string) => {
+  return (dispatch: Function) => {
+    dispatch(addTodoStart());
+
+    // @TODO:　登録処理
+    firestore
+      .collection('users')
+      .doc(userId)
+      .set({ todos: [...todos, addedTodo] })
+      .then(() => {
+        //@TODO: Success SyncTodo
+      })
+      .catch((error: Error) => {
+        //@TODO: Failure revert
+      });
+  };
+};
+
 export const deleteTodo = (todo: Todo): TodoAction => ({
   type: TodoActionTypes.DELETE_TODO_ITEM,
   payload: todo
@@ -70,10 +102,6 @@ export const SyncTodo = (todos: Todo[]): TodoAction => ({
   type: TodoActionTypes.SYNC_TODOS,
   payload: todos
 });
-
-// @TODO: Add start
-// @TODO: Add success
-// @TODO: Add failure
 
 // @TODO: update start
 // @TODO: update success
