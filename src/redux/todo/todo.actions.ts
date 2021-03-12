@@ -80,6 +80,8 @@ export const addTodosStartAsync = (todos: Todo[], addedTodo: Todo, userId: strin
       .doc(userId)
       .set({ todos: [...todos, addedTodo] })
       .then(() => {
+        console.log(`addTodosStartAsync Success`);
+
         //@TODO: Success SyncTodo
       })
       .catch((error: Error) => {

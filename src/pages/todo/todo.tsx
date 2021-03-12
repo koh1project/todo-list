@@ -5,7 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { firestore } from 'firebase/firebase.utils';
 import { Todo } from 'redux/todo/todo.actions';
-import { addTodo } from 'redux/todo/todo.actions';
+import { addTodo, addTodosStartAsync } from 'redux/todo/todo.actions';
 
 import { RootState } from 'redux/root-reducer';
 import { SubmitButton } from 'components/Button/SubmitButton';
@@ -66,7 +66,7 @@ export const TodoPage: VFC = () => {
       createdAt: new Date()
     };
 
-    dispatch(addTodo(newTodo));
+    dispatch(addTodosStartAsync(storedTodos, newTodo, userId));
   };
 
   return (
