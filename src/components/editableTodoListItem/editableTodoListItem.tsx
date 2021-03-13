@@ -17,7 +17,7 @@ type Props = {
 
 const EventTargets = {
   dueDate: 'dueDate',
-  description: 'description'
+  description: 'description',
 } as const;
 
 export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
@@ -32,7 +32,7 @@ export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
     const newTodo = {
       ...todo,
       description: description,
-      dueDate: dueDate
+      dueDate: dueDate,
     };
     dispatch(editTodo(newTodo));
   };

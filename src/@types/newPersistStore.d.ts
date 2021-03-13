@@ -12,7 +12,7 @@ declare module 'redux-persist/es/persistStore' {
   export default function persistStore<S = any, A extends Action<any> = AnyAction>(
     store: Store<S, A>,
     persistorOptions?: PersistorOptions | null,
-    callback?: () => any
+    callback?: () => any,
   ): Persistor;
 }
 

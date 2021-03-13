@@ -20,17 +20,17 @@ export type TodoAction = {
 };
 
 export const fetchTodoStart = (): TodoAction => ({
-  type: TodoActionTypes.FETCH_TODOS_START
+  type: TodoActionTypes.FETCH_TODOS_START,
 });
 
 export const fetchTodoSuccess = (todos: Todo[]): TodoAction => ({
   type: TodoActionTypes.FETCH_TODOS_SUCCESS,
-  payload: todos
+  payload: todos,
 });
 
 export const fetchTodoFailure = (errorMessage: string): TodoAction => ({
   type: TodoActionTypes.FETCH_TODOS_FAILURE,
-  payload: errorMessage
+  payload: errorMessage,
 });
 
 export const fetchTodosStartAsync = (useId: string) => {
@@ -53,21 +53,21 @@ export const fetchTodosStartAsync = (useId: string) => {
 
 export const addTodo = (todo: Todo): TodoAction => ({
   type: TodoActionTypes.ADD_TODO_ITEM,
-  payload: todo
+  payload: todo,
 });
 
 export const addTodoStart = (): TodoAction => ({
-  type: TodoActionTypes.ADD_TODO_START
+  type: TodoActionTypes.ADD_TODO_START,
 });
 
 export const addTodoSuccess = (todos: Todo[]): TodoAction => ({
   type: TodoActionTypes.ADD_TODO_SUCCESS,
-  payload: todos
+  payload: todos,
 });
 
 export const addTodoFailure = (errorMessage: string): TodoAction => ({
   type: TodoActionTypes.ADD_TODO_FAILURE,
-  payload: errorMessage
+  payload: errorMessage,
 });
 
 export const addTodosStartAsync = (todos: Todo[], addedTodo: Todo, userId: string) => {
@@ -101,21 +101,21 @@ export const addTodosStartAsync = (todos: Todo[], addedTodo: Todo, userId: strin
 
 export const deleteTodo = (todo: Todo): TodoAction => ({
   type: TodoActionTypes.DELETE_TODO_ITEM,
-  payload: todo
+  payload: todo,
 });
 
 export const editTodo = (todo: Todo): TodoAction => ({
   type: TodoActionTypes.UPDATE_TODO_ITEM,
-  payload: todo
+  payload: todo,
 });
 
 export const syncTodo = (todos: Todo[]): TodoAction => ({
   type: TodoActionTypes.SYNC_TODOS,
-  payload: todos
+  payload: todos,
 });
 
 export const revertTodo = (): TodoAction => ({
-  type: TodoActionTypes.REVERT_TODOS
+  type: TodoActionTypes.REVERT_TODOS,
 });
 
 // @TODO: update start

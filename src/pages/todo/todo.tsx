@@ -41,7 +41,7 @@ export const TodoPage: VFC = () => {
       description: 'ADDtest',
       done: false,
       dueDate: new Date(),
-      createdAt: new Date()
+      createdAt: new Date(),
     };
 
     // firestore
@@ -63,7 +63,7 @@ export const TodoPage: VFC = () => {
       description: description,
       dueDate: dueDate,
       done: false,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
 
     dispatch(addTodosStartAsync(storedTodos, newTodo, userId));

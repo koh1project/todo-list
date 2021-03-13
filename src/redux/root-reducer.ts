@@ -7,12 +7,12 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user']
+  whitelist: ['user'],
 };
 
 const rootReducer = combineReducers({
   user: userReducer,
-  todo: todoReducer
+  todo: todoReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -8,5 +8,5 @@ export type UserAction = {
 
 export const setCurrentUser = (user: string): UserAction => ({
   type: UserActionTypes.SET_CURRENT_USER,
-  payload: user
+  payload: user,
 });

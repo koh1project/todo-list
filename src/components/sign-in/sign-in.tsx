@@ -8,7 +8,7 @@ const SignIn: VFC = (props) => {
   const dispatch = useDispatch();
   const [userCredentials, setUserCredentials] = useState({
     email: '',
-    password: ''
+    password: '',
   });
   const { email, password } = userCredentials;
   const handleChange = (event: any) => {
