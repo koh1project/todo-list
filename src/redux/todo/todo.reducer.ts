@@ -31,9 +31,12 @@ export const todoReducer: Reducer<TodoState, TodoAction> = (
         todos: state.todos.map((todo) => (todo.id === editedTodo?.id ? editedTodo : todo))
       };
     case TodoActionTypes.FETCH_TODOS_SUCCESS:
-      return { ...state, previousTodos: state.todos, todos: action.payload as Todo[] };
+      const fetchedTodos = action.payload as Todo[];
+      return { ...state, previousTodos: fetchedTodos, todos: fetchedTodos };
     case TodoActionTypes.SYNC_TODOS:
       return { ...state, previousTodos: state.todos, todos: action.payload as Todo[] };
+    case TodoActionTypes.REVERT_TODOS:
+      return { ...state, todos: state.previousTodos as Todo[] };
     default:
       return state;
   }

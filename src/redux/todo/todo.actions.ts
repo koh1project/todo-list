@@ -75,17 +75,26 @@ export const addTodosStartAsync = (todos: Todo[], addedTodo: Todo, userId: strin
     dispatch(addTodoStart());
 
     // @TODO:　登録処理
+
+    const newTodos = [...todos, addedTodo];
+
     firestore
       .collection('users')
       .doc(userId)
-      .set({ todos: [...todos, addedTodo] })
+      .set({ todos: newTodos })
       .then(() => {
         console.log(`addTodosStartAsync Success`);
 
+        throw new Error();
+
         //@TODO: Success SyncTodo
+        dispatch(syncTodo(newTodos));
       })
       .catch((error: Error) => {
         //@TODO: Failure revert
+        console.log(`ERROR happen`);
+
+        dispatch(revertTodo());
       });
   };
 };
@@ -100,9 +109,13 @@ export const editTodo = (todo: Todo): TodoAction => ({
   payload: todo
 });
 
-export const SyncTodo = (todos: Todo[]): TodoAction => ({
+export const syncTodo = (todos: Todo[]): TodoAction => ({
   type: TodoActionTypes.SYNC_TODOS,
   payload: todos
+});
+
+export const revertTodo = (): TodoAction => ({
+  type: TodoActionTypes.REVERT_TODOS
 });
 
 // @TODO: update start
