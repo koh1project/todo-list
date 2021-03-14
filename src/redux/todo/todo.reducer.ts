@@ -33,6 +33,8 @@ export const todoReducer: Reducer<TodoState, TodoAction> = (
     case TodoActionTypes.FETCH_TODOS_SUCCESS:
       const fetchedTodos = action.payload as Todo[];
       return { ...state, previousTodos: fetchedTodos, todos: fetchedTodos };
+    case TodoActionTypes.ADD_TODO_SUCCESS:
+    case TodoActionTypes.DELETE_TODO_SUCCESS:
     case TodoActionTypes.SYNC_TODOS:
       return { ...state, previousTodos: state.todos, todos: action.payload as Todo[] };
     case TodoActionTypes.REVERT_TODOS:

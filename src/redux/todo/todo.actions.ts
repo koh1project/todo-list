@@ -51,11 +51,6 @@ export const fetchTodosStartAsync = (useId: string) => {
   };
 };
 
-export const addTodo = (todo: Todo): TodoAction => ({
-  type: TodoActionTypes.ADD_TODO_ITEM,
-  payload: todo,
-});
-
 export const addTodoStart = (): TodoAction => ({
   type: TodoActionTypes.ADD_TODO_START,
 });
@@ -74,8 +69,6 @@ export const addTodosStartAsync = (todos: Todo[], addedTodo: Todo, userId: strin
   return (dispatch: Function) => {
     dispatch(addTodoStart());
 
-    // @TODO:　登録処理
-
     const newTodos = [...todos, addedTodo];
 
     firestore
@@ -83,26 +76,49 @@ export const addTodosStartAsync = (todos: Todo[], addedTodo: Todo, userId: strin
       .doc(userId)
       .set({ todos: newTodos })
       .then(() => {
-        console.log(`addTodosStartAsync Success`);
-
-        throw new Error();
-
-        //@TODO: Success SyncTodo
-        dispatch(syncTodo(newTodos));
+        dispatch(addTodoSuccess(newTodos));
       })
       .catch((error: Error) => {
-        //@TODO: Failure revert
-        console.log(`ERROR happen`);
-
         dispatch(revertTodo());
+        dispatch(addTodoFailure(error.message));
       });
   };
 };
 
-export const deleteTodo = (todo: Todo): TodoAction => ({
-  type: TodoActionTypes.DELETE_TODO_ITEM,
+export const deleteTodoStart = (): TodoAction => ({
+  type: TodoActionTypes.DELETE_TODO_START,
+});
+export const deleteTodoSuccess = (todo: Todo[]): TodoAction => ({
+  type: TodoActionTypes.DELETE_TODO_SUCCESS,
   payload: todo,
 });
+export const deleteTodoFailure = (errorMessage: string): TodoAction => ({
+  type: TodoActionTypes.DELETE_TODO_FAILURE,
+  payload: errorMessage,
+});
+
+export const deleteTodosStartAsync = (todos: Todo[], deleteTargetTodo: Todo, userId: string) => {
+  return (dispatch: Function) => {
+    dispatch(deleteTodoStart());
+
+    const newTodos = todos.slice().filter((todo) => todo.id !== deleteTargetTodo.id);
+
+    firestore
+      .collection('users')
+      .doc(userId)
+      .set({ todos: newTodos })
+      .then(() => {
+        console.log(`Delete`);
+        console.log(userId);
+
+        dispatch(deleteTodoSuccess(newTodos));
+      })
+      .catch((error: Error) => {
+        dispatch(revertTodo());
+        dispatch(deleteTodoFailure(error.message));
+      });
+  };
+};
 
 export const editTodo = (todo: Todo): TodoAction => ({
   type: TodoActionTypes.UPDATE_TODO_ITEM,
@@ -121,7 +137,3 @@ export const revertTodo = (): TodoAction => ({
 // @TODO: update start
 // @TODO: update success
 // @TODO: update failure
-
-// @TODO: delete start
-// @TODO: delete success
-// @TODO: delete failure
