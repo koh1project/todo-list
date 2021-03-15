@@ -108,9 +108,6 @@ export const deleteTodosStartAsync = (todos: Todo[], deleteTargetTodo: Todo, use
       .doc(userId)
       .set({ todos: newTodos })
       .then(() => {
-        console.log(`Delete`);
-        console.log(userId);
-
         dispatch(deleteTodoSuccess(newTodos));
       })
       .catch((error: Error) => {
