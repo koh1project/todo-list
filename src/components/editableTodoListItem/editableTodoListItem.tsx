@@ -51,7 +51,7 @@ export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
           value={description}
         />
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
-        <SubmitButton handleSubmit={handleSubmit} />
+        <SubmitButton label={'編集'} handleSubmit={handleSubmit} />
       </form>
     </div>
   );

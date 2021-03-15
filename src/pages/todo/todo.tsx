@@ -81,7 +81,7 @@ export const TodoPage: VFC = () => {
           value={description}
         />
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
-        <SubmitButton handleSubmit={handleSubmit} />
+        <SubmitButton label={'登録'} handleSubmit={handleSubmit} />
       </form>
       <TodoContainer todos={storedTodos} />
     </div>
