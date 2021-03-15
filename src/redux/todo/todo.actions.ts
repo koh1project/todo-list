@@ -79,7 +79,6 @@ export const addTodosStartAsync = (todos: Todo[], addedTodo: Todo, userId: strin
         dispatch(addTodoSuccess(newTodos));
       })
       .catch((error: Error) => {
-        dispatch(revertTodo());
         dispatch(addTodoFailure(error.message));
       });
   };
@@ -111,14 +110,13 @@ export const deleteTodosStartAsync = (todos: Todo[], deleteTargetTodo: Todo, use
         dispatch(deleteTodoSuccess(newTodos));
       })
       .catch((error: Error) => {
-        dispatch(revertTodo());
         dispatch(deleteTodoFailure(error.message));
       });
   };
 };
 
 export const editTodo = (todo: Todo): TodoAction => ({
-  type: TodoActionTypes.UPDATE_TODO_ITEM,
+  type: TodoActionTypes.EDIT_TODO_ITEM,
   payload: todo,
 });
 
@@ -131,6 +129,36 @@ export const revertTodo = (): TodoAction => ({
   type: TodoActionTypes.REVERT_TODOS,
 });
 
-// @TODO: update start
-// @TODO: update success
-// @TODO: update failure
+export const updateTodoStart = (): TodoAction => ({
+  type: TodoActionTypes.UPDATE_TODO_START,
+});
+
+export const updateTodoSuccess = (todo: Todo): TodoAction => ({
+  type: TodoActionTypes.UPDATE_TODO_SUCCESS,
+  payload: todo,
+});
+
+export const updateTodoFailure = (errorMessage: string): TodoAction => ({
+  type: TodoActionTypes.UPDATE_TODO_FAILURE,
+  payload: errorMessage,
+});
+
+export const updateTodosStartAsync = (todos: Todo[], updateTargetTodo: Todo, userId: string) => {
+  return (dispatch: Function) => {
+    dispatch(editTodo(updateTargetTodo)); // 通信前にUIに反映させる
+    dispatch(updateTodoStart());
+
+    const newTodos = todos.slice().map((todo) => (todo.id === updateTargetTodo.id ? updateTargetTodo : todo));
+
+    firestore
+      .collection('users')
+      .doc(userId)
+      .update({ todos: newTodos })
+      .then(() => {
+        dispatch(deleteTodoSuccess(newTodos));
+      })
+      .catch((error: Error) => {
+        dispatch(deleteTodoFailure(error.message));
+      });
+  };
+};

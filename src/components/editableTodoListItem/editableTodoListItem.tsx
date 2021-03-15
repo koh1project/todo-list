@@ -1,8 +1,8 @@
 import React, { VFC, useState } from 'react';
 import { Todo } from 'redux/todo/todo.actions';
-import { useDispatch } from 'react-redux';
-
-import { editTodo } from 'redux/todo/todo.actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'redux/root-reducer';
+import { updateTodosStartAsync } from 'redux/todo/todo.actions';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -25,6 +25,9 @@ export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
 
   const [description, setDescription] = useState<string>(todo.description);
   const [dueDate, setDueDate] = useState<Date>(new Date(todo.dueDate as Date));
+  // let userId = useSelector((state: RootState) => state.user.currentUser);
+  const userId = 'xTbimz0MSPLPw5xnKEe5'; //@TODO: テストデータ
+  const todos = useSelector((state: RootState) => state.todo.todos);
 
   const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -34,7 +37,7 @@ export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
       description: description,
       dueDate: dueDate,
     };
-    dispatch(editTodo(newTodo));
+    dispatch(updateTodosStartAsync(todos, newTodo, userId));
   };
   const handleChangeDescription = (event: any) => {
     event.preventDefault();
