@@ -17,7 +17,7 @@ export const TodoContainer: VFC<Props> = (props) => {
   useEffect(() => {
     dispatch(fetchTodosStartAsync(userId));
     return () => {};
-  }, []);
+  }, [dispatch, userId]);
 
   return (
     <div>

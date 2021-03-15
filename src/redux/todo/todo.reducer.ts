@@ -36,8 +36,12 @@ export const todoReducer: Reducer<TodoState, TodoAction> = (
     case TodoActionTypes.ADD_TODO_SUCCESS:
     case TodoActionTypes.DELETE_TODO_SUCCESS:
     case TodoActionTypes.SYNC_TODOS:
+      // Sync
       return { ...state, previousTodos: state.todos, todos: action.payload as Todo[] };
     case TodoActionTypes.REVERT_TODOS:
+    case TodoActionTypes.ADD_TODO_FAILURE:
+    case TodoActionTypes.DELETE_TODO_FAILURE:
+      // Revert
       return { ...state, todos: state.previousTodos as Todo[] };
     default:
       return state;
