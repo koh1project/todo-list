@@ -29,6 +29,8 @@ export const TodoPage: VFC = () => {
       createdAt: new Date(),
     };
     dispatch(addTodosStartAsync(storedTodos, newTodo, userId));
+    setDescription('');
+    setDueDate(new Date());
   };
 
   return (
