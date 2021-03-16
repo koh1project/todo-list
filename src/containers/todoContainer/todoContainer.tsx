@@ -4,24 +4,21 @@ import { useDispatch } from 'react-redux';
 
 import { Todo, fetchTodosStartAsync } from 'redux/todo/todo.actions';
 
-export type Props = {
+export type TodoContainerProps = {
   todos: Todo[];
+  userId: string;
 };
 
-export const TodoContainer: VFC<Props> = (props) => {
-  const { todos } = props;
-
-  const userId = 'xTbimz0MSPLPw5xnKEe5';
-
+export const TodoContainer: VFC<TodoContainerProps> = ({ todos, userId }) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchTodosStartAsync(userId));
+    userId !== '' && dispatch(fetchTodosStartAsync(userId));
     return () => {};
   }, [dispatch, userId]);
 
   return (
     <div>
-      <TodoList todos={todos} />
+      <TodoList todos={todos} userId={userId} />
     </div>
   );
 };

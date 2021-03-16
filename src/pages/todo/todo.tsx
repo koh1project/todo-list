@@ -1,12 +1,12 @@
 import React, { VFC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'redux/root-reducer';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Todo } from 'redux/todo/todo.actions';
 import { addTodosStartAsync } from 'redux/todo/todo.actions';
 
-import { RootState } from 'redux/root-reducer';
 import { SubmitButton } from 'components/Button/SubmitButton';
 import { TodoContainer } from 'containers/todoContainer/todoContainer';
 
@@ -14,10 +14,9 @@ export const TodoPage: VFC = () => {
   const [dueDate, setDueDate] = useState<Date>(new Date());
   const [description, setDescription] = useState<string>('');
   const storedTodos = useSelector((state: RootState) => state.todo.todos);
-  const dispatch = useDispatch();
+  const userId = useSelector((state: RootState) => state.user.currentUser) ?? '';
 
-  // TODO: テストデータ
-  const userId = 'xTbimz0MSPLPw5xnKEe5';
+  const dispatch = useDispatch();
 
   const handleSubmit = (evt: React.FormEvent<HTMLInputElement>) => {
     evt.preventDefault();
@@ -47,7 +46,7 @@ export const TodoPage: VFC = () => {
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
         <SubmitButton label={'登録'} handleSubmit={handleSubmit} />
       </form>
-      <TodoContainer todos={storedTodos} />
+      <TodoContainer todos={storedTodos} userId={userId} />
     </div>
   );
 };

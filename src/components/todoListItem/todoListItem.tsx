@@ -6,16 +6,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { EditableTodoListItem } from 'components/editableTodoListItem/editableTodoListItem';
 import { formattedDateString } from 'utils';
 import { RootState } from 'redux/root-reducer';
-type Props = {
+type TodoListItemProps = {
   todo: Todo;
+  userId: string;
 };
 
-export const TodoListItem: VFC<Props> = ({ todo }) => {
+export const TodoListItem: VFC<TodoListItemProps> = ({ todo, userId }) => {
   const dispatch = useDispatch();
   const [clicked, setClicked] = useState<boolean>(false);
-
-  // let userId = useSelector((state: RootState) => state.user.currentUser);
-  const userId = 'xTbimz0MSPLPw5xnKEe5'; //@TODO: テストデータ
   const todos = useSelector((state: RootState) => state.todo.todos);
 
   const handlerClicked = (evt: React.MouseEvent) => {
@@ -23,11 +21,8 @@ export const TodoListItem: VFC<Props> = ({ todo }) => {
     setClicked(!clicked);
   };
 
-  // @FIX:
-  // const dueDate = typeof todo.dueDate === 'string' ? todo.dueDate : new Date();
-
   const content = clicked ? (
-    <EditableTodoListItem todo={todo} clicked={setClicked} />
+    <EditableTodoListItem clicked={setClicked} userId={userId} todo={todo} />
   ) : (
     <div key={Math.random()}>
       <input type="checkbox" onClick={() => dispatch(deleteTodosStartAsync(todos, todo, userId))} />

@@ -10,9 +10,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import FormInput from '../form-input/form-input';
 import { SubmitButton } from 'components/Button/SubmitButton';
 
-type Props = {
+type EditableTodoListItemProps = {
   todo: Todo;
   clicked: Function;
+  userId: string;
 };
 
 const EventTargets = {
@@ -20,13 +21,11 @@ const EventTargets = {
   description: 'description',
 } as const;
 
-export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
+export const EditableTodoListItem: VFC<EditableTodoListItemProps> = ({ todo, clicked, userId }) => {
   const dispatch = useDispatch();
 
   const [description, setDescription] = useState<string>(todo.description);
   const [dueDate, setDueDate] = useState<Date>(new Date(todo.dueDate as Date));
-  // let userId = useSelector((state: RootState) => state.user.currentUser);
-  const userId = 'xTbimz0MSPLPw5xnKEe5'; //@TODO: テストデータ
   const todos = useSelector((state: RootState) => state.todo.todos);
 
   const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
