@@ -3,6 +3,7 @@ import { auth } from 'firebase/firebase.utils';
 import FormInput from '../form-input/form-input';
 import { setCurrentUser } from '../../redux/user/user.actions';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const SignIn: VFC = (props) => {
   const dispatch = useDispatch();
@@ -17,14 +18,18 @@ const SignIn: VFC = (props) => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
+  const history = useHistory();
+
   const handleSubmit = async (evt: React.FormEvent<HTMLInputElement>) => {
     evt.preventDefault();
     console.log(userCredentials);
     // TODO: Login to firebase
     // const { user } = await auth.signInWithEmailAndPassword(email,password);
     const { user } = await auth.signInWithEmailAndPassword('test@gmail.com', 'aaaaaa');
-    console.log(user);
-    dispatch(setCurrentUser(user!.uid));
+    if (user) {
+      dispatch(setCurrentUser(user.uid));
+      history.push('/');
+    }
   };
 
   return (
