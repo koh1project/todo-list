@@ -1,5 +1,5 @@
 import { TodoList } from 'components/todoList/todoList';
-import { useEffect, VFC } from 'react';
+import { useEffect, useState, VFC } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Todo, fetchTodosStartAsync } from 'redux/todo/todo.actions';
@@ -9,16 +9,27 @@ export type TodoContainerProps = {
   userId: string;
 };
 
-export const TodoContainer: VFC<TodoContainerProps> = ({ todos, userId }) => {
+export const TodoContainer: VFC<TodoContainerProps> = (props) => {
   const dispatch = useDispatch();
+  const { userId } = props;
+
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [completed, setCompleted] = useState<Todo[]>([]);
+
   useEffect(() => {
     userId !== '' && dispatch(fetchTodosStartAsync(userId));
     return () => {};
   }, [dispatch, userId]);
 
+  useEffect(() => {
+    setTodos(props.todos.filter((todo) => !todo.done));
+    setCompleted(props.todos.filter((todo) => todo.done));
+  }, [props.todos]);
+
   return (
     <div>
-      <TodoList todos={todos} userId={userId} />
+      <TodoList label={'Todo List'} todos={todos} userId={userId} />
+      <TodoList label={'Completed List'} todos={completed} userId={userId} />
     </div>
   );
 };
