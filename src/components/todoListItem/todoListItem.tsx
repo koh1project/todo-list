@@ -9,9 +9,11 @@ import { RootState } from 'redux/root-reducer';
 type TodoListItemProps = {
   todo: Todo;
   userId: string;
+  onClickCheckBox: Function;
+  onClickItem?: Function;
 };
 
-export const TodoListItem: VFC<TodoListItemProps> = ({ todo, userId }) => {
+export const TodoListItem: VFC<TodoListItemProps> = ({ todo, userId, onClickCheckBox }) => {
   const dispatch = useDispatch();
   const [clicked, setClicked] = useState<boolean>(false);
   const todos = useSelector((state: RootState) => state.todo.todos);
@@ -25,7 +27,7 @@ export const TodoListItem: VFC<TodoListItemProps> = ({ todo, userId }) => {
     <EditableTodoListItem clicked={setClicked} userId={userId} todo={todo} />
   ) : (
     <div key={Math.random()}>
-      <input type="checkbox" onClick={() => dispatch(deleteTodosStartAsync(todos, todo, userId))} />
+      <input type="checkbox" onClick={() => onClickCheckBox()} />
       <span onClick={(evt) => handlerClicked(evt)}>
         {todo.description} - {formattedDateString(todo.dueDate)}
       </span>

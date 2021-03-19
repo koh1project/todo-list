@@ -13,7 +13,7 @@ export const TodoList: VFC<TodoListProps> = ({ label, todos, userId }) => {
     <div>
       <h2>{label}</h2>
       {todos.map((todo) => (
-        <TodoListItem todo={todo} key={Math.random()} userId={userId} />
+        <TodoListItem todo={todo} key={Math.random()} userId={userId} onClickCheckBox={() => console.log(`Clicked`)} />
       ))}
     </div>
   );

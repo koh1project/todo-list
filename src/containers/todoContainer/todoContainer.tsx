@@ -1,8 +1,10 @@
-import { TodoList } from 'components/todoList/todoList';
 import { useEffect, useState, VFC } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Todo, fetchTodosStartAsync } from 'redux/todo/todo.actions';
+
+import { TodoList } from 'components/todoList/todoList';
+import { CompletedList } from 'components/completedList/completedList';
 
 export type TodoContainerProps = {
   todos: Todo[];
@@ -29,7 +31,7 @@ export const TodoContainer: VFC<TodoContainerProps> = (props) => {
   return (
     <div>
       <TodoList label={'Todo List'} todos={todos} userId={userId} />
-      <TodoList label={'Completed List'} todos={completed} userId={userId} />
+      <CompletedList completedTodos={completed} userId={userId} />
     </div>
   );
 };
