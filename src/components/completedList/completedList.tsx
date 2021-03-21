@@ -1,4 +1,4 @@
-import React, { VFC } from 'react';
+import { VFC } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTodosStartAsync } from 'redux/todo/todo.actions';
