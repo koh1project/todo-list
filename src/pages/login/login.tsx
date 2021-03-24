@@ -1,8 +1,6 @@
 import SignIn from 'components/sign-in/sign-in';
 
 export const Login = () => {
-
-
   // @TODO: Sign up component
   // @TODO: Use UI component
 
