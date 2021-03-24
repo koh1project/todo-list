@@ -16,16 +16,15 @@ export const CompletedList: VFC<CompletedListProps> = ({ completedTodos, userId 
   const dispatch = useDispatch();
   const todos = useSelector((state: RootState) => state.todo.todos);
 
+  const handleOnClick = (todo: Todo) => {
+    dispatch(deleteTodosStartAsync(todos, todo, userId));
+  };
+
   return (
     <div>
       <h2>Completed List</h2>
       {completedTodos.map((todo) => (
-        <TodoListItem
-          todo={todo}
-          key={Math.random()}
-          userId={userId}
-          onClickCheckBox={() => dispatch(deleteTodosStartAsync(todos, todo, userId))}
-        />
+        <TodoListItem todo={todo} key={Math.random()} userId={userId} onClickCheckBox={handleOnClick} />
       ))}
     </div>
   );

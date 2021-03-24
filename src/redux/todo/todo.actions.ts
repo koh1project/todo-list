@@ -134,9 +134,9 @@ export const updateTodoStart = (): TodoAction => ({
   type: TodoActionTypes.UPDATE_TODO_START,
 });
 
-export const updateTodoSuccess = (todo: Todo): TodoAction => ({
+export const updateTodoSuccess = (todos: Todo[]): TodoAction => ({
   type: TodoActionTypes.UPDATE_TODO_SUCCESS,
-  payload: todo,
+  payload: todos,
 });
 
 export const updateTodoFailure = (errorMessage: string): TodoAction => ({
@@ -151,15 +151,17 @@ export const updateTodosStartAsync = (todos: Todo[], updateTargetTodo: Todo, use
 
     const newTodos = todos.slice().map((todo) => (todo.id === updateTargetTodo.id ? updateTargetTodo : todo));
 
+    console.log(newTodos);
+
     firestore
       .collection('users')
       .doc(userId)
       .update({ todos: newTodos })
       .then(() => {
-        dispatch(deleteTodoSuccess(newTodos));
+        dispatch(updateTodoSuccess(newTodos));
       })
       .catch((error: Error) => {
-        dispatch(deleteTodoFailure(error.message));
+        dispatch(updateTodoFailure(error.message));
       });
   };
 };
