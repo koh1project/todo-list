@@ -1,3 +1,4 @@
+import { Dispatch } from 'redux';
 import { firestore } from './../../firebase/firebase.utils';
 import { ValueOf } from 'redux/redux.utils';
 import { TodoActionTypes } from 'redux/todo/todo.types';
@@ -34,7 +35,7 @@ export const fetchTodoFailure = (errorMessage: string): TodoAction => ({
 });
 
 export const fetchTodosStartAsync = (useId: string) => {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch<TodoAction>) => {
     const todosRef = firestore.collection('users').doc(useId);
     dispatch(fetchTodoStart());
 
@@ -66,7 +67,7 @@ export const addTodoFailure = (errorMessage: string): TodoAction => ({
 });
 
 export const addTodosStartAsync = (todos: Todo[], addedTodo: Todo, userId: string) => {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch<TodoAction>) => {
     dispatch(addTodoStart());
 
     const newTodos = [...todos, addedTodo];
@@ -97,7 +98,7 @@ export const deleteTodoFailure = (errorMessage: string): TodoAction => ({
 });
 
 export const deleteTodosStartAsync = (todos: Todo[], deleteTargetTodo: Todo, userId: string) => {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch<TodoAction>) => {
     dispatch(deleteTodoStart());
 
     const newTodos = todos.slice().filter((todo) => todo.id !== deleteTargetTodo.id);
@@ -144,7 +145,7 @@ export const updateTodoFailure = (errorMessage: string): TodoAction => ({
 });
 
 export const updateTodosStartAsync = (todos: Todo[], updateTargetTodo: Todo, userId: string) => {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch<TodoAction>) => {
     dispatch(editTodo(updateTargetTodo)); // 通信前にUIに反映させる
     dispatch(updateTodoStart());
 
