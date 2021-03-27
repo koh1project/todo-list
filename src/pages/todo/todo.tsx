@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Todo } from 'redux/todo/todo.actions';
 import { addTodosStartAsync } from 'redux/todo/todo.actions';
+import { deleteCurrentUser } from 'redux/user/user.actions';
 
 import { SubmitButton } from 'components/Button/SubmitButton';
 import { TodoContainer } from 'containers/todoContainer/todoContainer';
@@ -35,6 +36,7 @@ export const TodoPage: VFC = () => {
   return (
     <div>
       <h1>Todo Page</h1>
+      <button onClick={() => dispatch(deleteCurrentUser())}>Logout</button>
       <form>
         <input
           type="text"

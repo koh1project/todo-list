@@ -13,7 +13,12 @@ export const userReducer: Reducer<UserState, UserAction> = (
     case UserActionTypes.SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.payload,
+        currentUser: action.payload!,
+      };
+    case UserActionTypes.DELETE_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: null,
       };
     default:
       return state;
