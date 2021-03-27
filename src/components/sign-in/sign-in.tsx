@@ -42,8 +42,12 @@ const SignIn: VFC = (props) => {
         value={password}
         label="password"
       ></FormInput>
-      <input type="submit" value="submit" onClick={(evt) => handleSubmit(evt)} />
-      <button>google signin</button>
+      <div>
+        <input type="submit" value="submit" onClick={(evt) => handleSubmit(evt)} />
+      </div>
+      <div>
+        <button>google signin</button>
+      </div>
     </div>
   );
 };
