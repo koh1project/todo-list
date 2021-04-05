@@ -17,6 +17,7 @@
     "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.8",
     "@types/redux-thunk": "^2.1.0",
+    "@types/styled-components": "^5.1.9",
     "firebase": "^8.2.6",
     "firebase-tools": "^9.4.0",
     "node-sass": "^5.0.0",
@@ -31,6 +32,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
+    "styled-components": "^5.2.3",
     "typescript": "^4.1.3",
     "web-vitals": "^1.1.0"
   },
