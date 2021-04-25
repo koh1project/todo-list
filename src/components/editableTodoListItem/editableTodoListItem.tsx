@@ -10,6 +10,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import FormInput from '../form-input/form-input';
 import { SubmitButton } from 'components/Button/SubmitButton';
 
+import './editableTodoListItem.css';
+
 type EditableTodoListItemProps = {
   todo: Todo;
   clicked: Function;
@@ -45,7 +47,7 @@ export const EditableTodoListItem: VFC<EditableTodoListItemProps> = ({ todo, cli
 
   return (
     <div key={todo.id}>
-      <form>
+      <form className={'EditableTodoListItem'}>
         <FormInput
           type="text"
           name={EventTargets.description}
