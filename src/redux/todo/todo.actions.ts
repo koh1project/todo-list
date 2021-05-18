@@ -1,3 +1,4 @@
+import { Dispatch } from 'redux';
 import { firestore } from './../../firebase/firebase.utils';
 import { ValueOf } from 'redux/redux.utils';
 import { TodoActionTypes } from 'redux/todo/todo.types';
@@ -20,21 +21,21 @@ export type TodoAction = {
 };
 
 export const fetchTodoStart = (): TodoAction => ({
-  type: TodoActionTypes.FETCH_TODOS_START
+  type: TodoActionTypes.FETCH_TODOS_START,
 });
 
 export const fetchTodoSuccess = (todos: Todo[]): TodoAction => ({
   type: TodoActionTypes.FETCH_TODOS_SUCCESS,
-  payload: todos
+  payload: todos,
 });
 
 export const fetchTodoFailure = (errorMessage: string): TodoAction => ({
   type: TodoActionTypes.FETCH_TODOS_FAILURE,
-  payload: errorMessage
+  payload: errorMessage,
 });
 
 export const fetchTodosStartAsync = (useId: string) => {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch<TodoAction>) => {
     const todosRef = firestore.collection('users').doc(useId);
     dispatch(fetchTodoStart());
 
@@ -51,17 +52,116 @@ export const fetchTodosStartAsync = (useId: string) => {
   };
 };
 
-export const addTodo = (todo: Todo): TodoAction => ({
-  type: TodoActionTypes.ADD_TODO_ITEM,
-  payload: todo
+export const addTodoStart = (): TodoAction => ({
+  type: TodoActionTypes.ADD_TODO_START,
 });
 
-export const deleteTodo = (todo: Todo): TodoAction => ({
-  type: TodoActionTypes.DELETE_TODO_ITEM,
-  payload: todo
+export const addTodoSuccess = (todos: Todo[]): TodoAction => ({
+  type: TodoActionTypes.ADD_TODO_SUCCESS,
+  payload: todos,
 });
+
+export const addTodoFailure = (errorMessage: string): TodoAction => ({
+  type: TodoActionTypes.ADD_TODO_FAILURE,
+  payload: errorMessage,
+});
+
+export const addTodosStartAsync = (todos: Todo[], addedTodo: Todo, userId: string) => {
+  return (dispatch: Dispatch<TodoAction>) => {
+    dispatch(addTodoStart());
+
+    const newTodos = [...todos, addedTodo];
+
+    firestore
+      .collection('users')
+      .doc(userId)
+      .set({ todos: newTodos })
+      .then(() => {
+        dispatch(addTodoSuccess(newTodos));
+      })
+      .catch((error: Error) => {
+        dispatch(addTodoFailure(error.message));
+      });
+  };
+};
+
+export const deleteTodoStart = (): TodoAction => ({
+  type: TodoActionTypes.DELETE_TODO_START,
+});
+export const deleteTodoSuccess = (todo: Todo[]): TodoAction => ({
+  type: TodoActionTypes.DELETE_TODO_SUCCESS,
+  payload: todo,
+});
+export const deleteTodoFailure = (errorMessage: string): TodoAction => ({
+  type: TodoActionTypes.DELETE_TODO_FAILURE,
+  payload: errorMessage,
+});
+
+export const deleteTodosStartAsync = (todos: Todo[], deleteTargetTodo: Todo, userId: string) => {
+  return (dispatch: Dispatch<TodoAction>) => {
+    dispatch(deleteTodoStart());
+
+    const newTodos = todos.slice().filter((todo) => todo.id !== deleteTargetTodo.id);
+
+    firestore
+      .collection('users')
+      .doc(userId)
+      .set({ todos: newTodos })
+      .then(() => {
+        dispatch(deleteTodoSuccess(newTodos));
+      })
+      .catch((error: Error) => {
+        dispatch(deleteTodoFailure(error.message));
+      });
+  };
+};
 
 export const editTodo = (todo: Todo): TodoAction => ({
-  type: TodoActionTypes.UPDATE_TODO_ITEM,
-  payload: todo
+  type: TodoActionTypes.EDIT_TODO_ITEM,
+  payload: todo,
 });
+
+export const syncTodo = (todos: Todo[]): TodoAction => ({
+  type: TodoActionTypes.SYNC_TODOS,
+  payload: todos,
+});
+
+export const revertTodo = (): TodoAction => ({
+  type: TodoActionTypes.REVERT_TODOS,
+});
+
+export const updateTodoStart = (): TodoAction => ({
+  type: TodoActionTypes.UPDATE_TODO_START,
+});
+
+export const updateTodoSuccess = (todos: Todo[]): TodoAction => ({
+  type: TodoActionTypes.UPDATE_TODO_SUCCESS,
+  payload: todos,
+});
+
+export const updateTodoFailure = (errorMessage: string): TodoAction => ({
+  type: TodoActionTypes.UPDATE_TODO_FAILURE,
+  payload: errorMessage,
+});
+
+export const updateTodosStartAsync = (todos: Todo[], updateTargetTodo: Todo, userId: string) => {
+  return (dispatch: Dispatch<TodoAction>) => {
+    dispatch(editTodo(updateTargetTodo)); // 通信前にUIに反映させる
+    dispatch(updateTodoStart());
+
+    const newTodos = todos.slice().map((todo) => (todo.id === updateTargetTodo.id ? updateTargetTodo : todo));
+
+    console.log(newTodos);
+
+    firestore
+      .collection('users')
+      .doc(userId)
+      .update({ todos: newTodos })
+      .then(() => {
+        dispatch(updateTodoSuccess(newTodos));
+      })
+      .catch((error: Error) => {
+        dispatch(updateTodoFailure(error.message));
+      });
+  };
+};

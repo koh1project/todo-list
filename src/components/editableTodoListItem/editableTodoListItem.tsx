@@ -1,8 +1,8 @@
 import React, { VFC, useState } from 'react';
 import { Todo } from 'redux/todo/todo.actions';
-import { useDispatch } from 'react-redux';
-
-import { editTodo } from 'redux/todo/todo.actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'redux/root-reducer';
+import { updateTodosStartAsync } from 'redux/todo/todo.actions';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -10,21 +10,25 @@ import 'react-datepicker/dist/react-datepicker.css';
 import FormInput from '../form-input/form-input';
 import { SubmitButton } from 'components/Button/SubmitButton';
 
-type Props = {
+import './editableTodoListItem.css';
+
+type EditableTodoListItemProps = {
   todo: Todo;
   clicked: Function;
+  userId: string;
 };
 
 const EventTargets = {
   dueDate: 'dueDate',
-  description: 'description'
+  description: 'description',
 } as const;
 
-export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
+export const EditableTodoListItem: VFC<EditableTodoListItemProps> = ({ todo, clicked, userId }) => {
   const dispatch = useDispatch();
 
   const [description, setDescription] = useState<string>(todo.description);
   const [dueDate, setDueDate] = useState<Date>(new Date(todo.dueDate as Date));
+  const todos = useSelector((state: RootState) => state.todo.todos);
 
   const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -32,9 +36,9 @@ export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
     const newTodo = {
       ...todo,
       description: description,
-      dueDate: dueDate
+      dueDate: dueDate,
     };
-    dispatch(editTodo(newTodo));
+    dispatch(updateTodosStartAsync(todos, newTodo, userId));
   };
   const handleChangeDescription = (event: any) => {
     event.preventDefault();
@@ -43,7 +47,7 @@ export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
 
   return (
     <div key={todo.id}>
-      <form>
+      <form className={'EditableTodoListItem'}>
         <FormInput
           type="text"
           name={EventTargets.description}
@@ -51,7 +55,7 @@ export const EditableTodoListItem: VFC<Props> = ({ todo, clicked }) => {
           value={description}
         />
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
-        <SubmitButton handleSubmit={handleSubmit} />
+        <SubmitButton label={'編集'} handleSubmit={handleSubmit} />
       </form>
     </div>
   );
