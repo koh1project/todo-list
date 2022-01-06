@@ -7,9 +7,9 @@ firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
-export const googleProvider = new firebase.auth.GoogleAuthProvider();
-googleProvider.setCustomParameters({ prompt: 'select_account ' });
-export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+// export const googleProvider = new firebase.auth.GoogleAuthProvider();
+// googleProvider.setCustomParameters({ prompt: 'select_account ' });
+// export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export type FirebaseDocumentDataType = firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>;
 
@@ -43,3 +43,11 @@ export const createUserProfileDocument = async (userAuth: firebase.User) => {
 export const isFirebaseError = (error: unknown): error is FirebaseError => {
   return (error as FirebaseError).code !== undefined;
 };
+
+const provider = new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({
+  login_hint: 'user@example.com',
+  prompt: 'select_account',
+});
+
+export const signInWithGoogle = () => auth.signInWithPopup(provider);

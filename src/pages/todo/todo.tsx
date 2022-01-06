@@ -10,6 +10,7 @@ import { deleteCurrentUser } from 'redux/user/user.actions';
 
 import { SubmitButton } from 'components/Button/SubmitButton';
 import { TodoContainer } from 'containers/todoContainer/todoContainer';
+import { auth } from 'firebase/firebase.utils';
 
 export const TodoPage: VFC = () => {
   const [dueDate, setDueDate] = useState<Date>(new Date());
@@ -33,10 +34,17 @@ export const TodoPage: VFC = () => {
     setDueDate(new Date());
   };
 
+  const onClickSignOut = () => {
+    auth.signOut().then(res => {
+      dispatch(deleteCurrentUser());
+    });
+  };
+
+
   return (
     <div>
       <h1>Todo Page</h1>
-      <button onClick={() => dispatch(deleteCurrentUser())}>Logout</button>
+      <button onClick={onClickSignOut}>Logout</button>
       <form>
         <label htmlFor="description">
           Todo Item

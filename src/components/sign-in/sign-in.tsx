@@ -1,5 +1,5 @@
 import React, { VFC, useState } from 'react';
-import { auth } from 'firebase/firebase.utils';
+import { auth, signInWithGoogle } from 'firebase/firebase.utils';
 import FormInput from '../form-input/form-input';
 import { setCurrentUser } from '../../redux/user/user.actions';
 import { useDispatch } from 'react-redux';
@@ -49,7 +49,7 @@ const SignIn: VFC = () => {
     const { user } = await auth.signInWithEmailAndPassword('test@gmail.com', 'aaaaaa');
     if (user) {
       dispatch(setCurrentUser(user.uid));
-      history.push('/');
+      // history.push('/');
     }
   };
 
@@ -70,7 +70,7 @@ const SignIn: VFC = () => {
         <input type="submit" value="Sign In" onClick={(evt) => handleSubmit(evt)} />
       </div>
       <div>
-        <button>google signin</button>
+        <button onClick={signInWithGoogle}>google signin</button>
       </div>
     </div>
   );
