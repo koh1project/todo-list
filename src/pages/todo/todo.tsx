@@ -38,15 +38,19 @@ export const TodoPage: VFC = () => {
       <h1>Todo Page</h1>
       <button onClick={() => dispatch(deleteCurrentUser())}>Logout</button>
       <form>
+        <label htmlFor="description">
+          Todo Item
+        </label>
         <input
           type="text"
           name="description"
           id="description"
+          placeholder=''
           onChange={(evt) => setDescription(evt.target.value)}
           value={description}
         />
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
-        <SubmitButton label={'登録'} handleSubmit={handleSubmit} />
+        <SubmitButton label={'Set'} handleSubmit={handleSubmit} />
       </form>
       <TodoContainer todos={storedTodos} userId={userId} />
     </div>
