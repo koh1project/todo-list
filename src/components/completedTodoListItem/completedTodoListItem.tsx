@@ -23,10 +23,11 @@ export const CompletedTodoListItem: VFC<CompletedTodoListItemProps> = ({ todo, u
 
   return (
     <div key={Math.random()}>
-      <input type="checkbox" onClick={() => onClickCheckBox(todo)} />
-      <span onClick={() => handlerOnClick(todo)}>
+      <span>
         {todo.description} - {formattedDateString(todo.dueDate)}
       </span>
+      <button onClick={() => onClickCheckBox(todo)}>Delete</button>
+      <button onClick={() => handlerOnClick(todo)}>Return</button>
     </div>
   );
 };
