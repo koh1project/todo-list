@@ -4,7 +4,7 @@ import FormInput from '../form-input/form-input';
 import { setCurrentUser } from '../../redux/user/user.actions';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { FirebaseError } from '@firebase/util';
+import { isFirebaseError } from '../../firebase/firebase.utils';
 
 const SignIn: VFC = () => {
   const dispatch = useDispatch();
@@ -25,17 +25,17 @@ const SignIn: VFC = () => {
 
   const handleSubmit = async (evt: React.FormEvent<HTMLInputElement>) => {
     evt.preventDefault();
-    console.log(userCredentials);
-    // TODO: Login to firebase
+    // console.log(userCredentials);
+    setError('');
+
     try {
       const { user } = await auth.signInWithEmailAndPassword(email, password);
-
       if (user) {
         dispatch(setCurrentUser(user.uid));
         history.push('/');
       }
     } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
+      if (isFirebaseError(error)) {
         setError(error.message);
       }
     }
@@ -66,7 +66,7 @@ const SignIn: VFC = () => {
       ></FormInput>
       <div>
         <input type="submit" value="TestSubmit" onClick={(evt) => TestHandleSubmit(evt)} />
-        <input type="submit" value="submit" onClick={(evt) => handleSubmit(evt)} />
+        <input type="submit" value="Sign In" onClick={(evt) => handleSubmit(evt)} />
       </div>
       <div>
         <button>google signin</button>

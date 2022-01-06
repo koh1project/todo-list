@@ -30,7 +30,7 @@ export const createUserProfileDocument = async (userAuth: firebase.User) => {
         createdAt,
       });
     } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
+      if (isFirebaseError(error)) {
         console.log('error creating user', error.message);
       }
     }
@@ -38,4 +38,8 @@ export const createUserProfileDocument = async (userAuth: firebase.User) => {
 
   // eslint-disable-next-line consistent-return
   return userRef;
+};
+
+export const isFirebaseError = (error: unknown): error is FirebaseError => {
+  return (error as FirebaseError).code !== undefined;
 };

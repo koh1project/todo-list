@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { auth, createUserProfileDocument } from 'firebase/firebase.utils';
 import { setCurrentUser } from '../../redux/user/user.actions';
-import { FirebaseError } from '@firebase/util';
+import { isFirebaseError } from '../../firebase/firebase.utils';
 
 const SignUp: VFC = () => {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ const SignUp: VFC = () => {
 
   const handleSubmit = async (evt: React.FormEvent<HTMLInputElement>) => {
     evt.preventDefault();
+    setError('');
 
     try {
       const { user } = await auth.createUserWithEmailAndPassword(email, password);
@@ -35,7 +36,7 @@ const SignUp: VFC = () => {
         history.push('/');
       }
     } catch (error: unknown) {
-      if (error instanceof FirebaseError) {
+      if (isFirebaseError(error)) {
         setError(error.message);
       }
     }
@@ -47,7 +48,7 @@ const SignUp: VFC = () => {
       <form>
         <FormInput name="email" type="text" value={email} handleChange={handleChange} label="email"></FormInput>
         <FormInput name="password" type="password" handleChange={handleChange} value={password} label="password" />
-        <input type="submit" value="Submit" onClick={(evt) => handleSubmit(evt)} />
+        <input type="submit" value="Sign Up" onClick={(evt) => handleSubmit(evt)} />
       </form>
     </div>
   );
