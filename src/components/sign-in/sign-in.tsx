@@ -55,6 +55,7 @@ const SignIn: VFC = () => {
 
   return (
     <div>
+      <h3>Sign In</h3>
       {error}
       <FormInput name="email" type="text" value={email} handleChange={handleChange} label="email"></FormInput>
       <FormInput

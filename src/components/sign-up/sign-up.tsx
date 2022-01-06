@@ -44,6 +44,7 @@ const SignUp: VFC = () => {
 
   return (
     <div>
+      <h3>Sign Up</h3>
       {error}
       <form>
         <FormInput name="email" type="text" value={email} handleChange={handleChange} label="email"></FormInput>
