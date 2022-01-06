@@ -4,6 +4,7 @@ import FormInput from '../form-input/form-input';
 import { setCurrentUser } from '../../redux/user/user.actions';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { FirebaseError } from '@firebase/util';
 
 const SignIn: VFC = () => {
   const dispatch = useDispatch();
@@ -33,8 +34,10 @@ const SignIn: VFC = () => {
         dispatch(setCurrentUser(user.uid));
         history.push('/');
       }
-    } catch (err) {
-      setError(err.message);
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        setError(error.message);
+      }
     }
   };
 

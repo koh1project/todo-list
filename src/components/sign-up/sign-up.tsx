@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { auth, createUserProfileDocument } from 'firebase/firebase.utils';
 import { setCurrentUser } from '../../redux/user/user.actions';
+import { FirebaseError } from '@firebase/util';
 
 const SignUp: VFC = () => {
   const dispatch = useDispatch();
@@ -33,8 +34,10 @@ const SignUp: VFC = () => {
         dispatch(setCurrentUser(user.uid));
         history.push('/');
       }
-    } catch (error) {
-      setError(error.message);
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        setError(error.message);
+      }
     }
   };
 

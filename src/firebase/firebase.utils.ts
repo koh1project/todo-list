@@ -1,6 +1,7 @@
 import firebase from 'firebase';
 
 import firebaseConfig from './firebaseConfig';
+import { FirebaseError } from '@firebase/util';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -28,8 +29,10 @@ export const createUserProfileDocument = async (userAuth: firebase.User) => {
         email,
         createdAt,
       });
-    } catch (error) {
-      console.log('error creating user', error.message);
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        console.log('error creating user', error.message);
+      }
     }
   }
 
