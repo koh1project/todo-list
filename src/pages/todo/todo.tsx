@@ -17,7 +17,6 @@ export const TodoPage: VFC = () => {
   const [description, setDescription] = useState<string>('');
   const storedTodos = useSelector((state: RootState) => state.todo.todos);
   const userId = useSelector((state: RootState) => state.user.currentUser) ?? '';
-  console.log('userId: ', userId);
 
   const dispatch = useDispatch();
 
@@ -36,25 +35,22 @@ export const TodoPage: VFC = () => {
   };
 
   const onClickSignOut = () => {
-    auth.signOut().then(res => {
+    auth.signOut().then((res) => {
       dispatch(deleteCurrentUser());
     });
   };
-
 
   return (
     <div>
       <h1>Todo Page</h1>
       <button onClick={onClickSignOut}>Logout</button>
       <form>
-        <label htmlFor="description">
-          Todo Item
-        </label>
+        <label htmlFor="description">Todo Item</label>
         <input
           type="text"
           name="description"
           id="description"
-          placeholder=''
+          placeholder=""
           onChange={(evt) => setDescription(evt.target.value)}
           value={description}
         />

@@ -44,6 +44,8 @@ export const todoReducer: Reducer<TodoState, TodoAction> = (
     case TodoActionTypes.UPDATE_TODO_FAILURE:
       // Revert
       return { ...state, todos: state.previousTodos as Todo[] };
+    case TodoActionTypes.FETCH_TODOS_FAILURE:
+      return { ...state, todos: [] };
     default:
       return state;
   }
