@@ -17,6 +17,7 @@ export const TodoPage: VFC = () => {
   const [description, setDescription] = useState<string>('');
   const storedTodos = useSelector((state: RootState) => state.todo.todos);
   const userId = useSelector((state: RootState) => state.user.currentUser) ?? '';
+  console.log('userId: ', userId);
 
   const dispatch = useDispatch();
 

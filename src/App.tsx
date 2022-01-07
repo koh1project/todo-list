@@ -1,4 +1,4 @@
-import { VFC } from 'react';
+import { useEffect, VFC } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from 'redux/root-reducer';
@@ -17,11 +17,16 @@ const App: VFC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  useEffect(() => {
+    if (userId) {
+      history.push('/');
+    }
+  }, [userId, history]);
+
   auth.onAuthStateChanged(async (user) => {
     if (user) {
       console.log('userChange: ', user);
       dispatch(setCurrentUser(user.uid));
-      history.push('/');
     }
   });
 
