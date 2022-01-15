@@ -30,25 +30,12 @@ const App: VFC = () => {
     }
   });
 
-  // const routes = userId ? (
-  //   <Switch>
-  //     <Route path={'/login'} component={Login} />
-  //     <Route path={'/'} component={TodoPage} exact />
-  //     <Redirect to="/" />
-  //   </Switch>
-  // ) : (
-  //   <Switch>
-  //     <Route path={'/login'} component={Login} />
-  //     <Redirect to="/login" />
-  //   </Switch>
-  // );
   const routes = (
     <Switch>
       <Route path={'/login'} component={Login} exact />
       <Route exact path="/" render={() => (userId ? <TodoPage /> : <Redirect to="/login" />)} />
     </Switch>
   );
-  console.log(userId);
   return <div className="App">{routes}</div>;
 };
 

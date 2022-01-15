@@ -17,6 +17,7 @@ export const TodoPage: VFC = () => {
   const [description, setDescription] = useState<string>('');
   const storedTodos = useSelector((state: RootState) => state.todo.todos);
   const userId = useSelector((state: RootState) => state.user.currentUser) ?? '';
+  const isLoading = useSelector((state: RootState) => state.todo.isLoading) ?? '';
 
   const dispatch = useDispatch();
 
@@ -57,6 +58,7 @@ export const TodoPage: VFC = () => {
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
         <SubmitButton label={'Set'} handleSubmit={handleSubmit} />
       </form>
+      {isLoading ? 'isLoading' : null}
       <TodoContainer todos={storedTodos} userId={userId} />
     </div>
   );
