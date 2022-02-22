@@ -10,12 +10,16 @@ import { deleteCurrentUser } from 'redux/user/user.actions';
 
 import { SubmitButton } from 'components/Button/SubmitButton';
 import { TodoContainer } from 'containers/todoContainer/todoContainer';
+import { auth } from 'firebase/firebase.utils';
+
+import './todo.scss';
 
 export const TodoPage: VFC = () => {
   const [dueDate, setDueDate] = useState<Date>(new Date());
   const [description, setDescription] = useState<string>('');
   const storedTodos = useSelector((state: RootState) => state.todo.todos);
   const userId = useSelector((state: RootState) => state.user.currentUser) ?? '';
+  const isLoading = useSelector((state: RootState) => state.todo.isLoading) ?? '';
 
   const dispatch = useDispatch();
 
@@ -33,21 +37,30 @@ export const TodoPage: VFC = () => {
     setDueDate(new Date());
   };
 
+  const onClickSignOut = () => {
+    auth.signOut().then((res) => {
+      dispatch(deleteCurrentUser());
+    });
+  };
+
   return (
-    <div>
+    <div className='todo-page'>
       <h1>Todo Page</h1>
-      <button onClick={() => dispatch(deleteCurrentUser())}>Logout</button>
+      <button onClick={onClickSignOut}>Logout</button>
       <form>
+        <label htmlFor="description">Todo Item</label>
         <input
           type="text"
           name="description"
           id="description"
+          placeholder=""
           onChange={(evt) => setDescription(evt.target.value)}
           value={description}
         />
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
-        <SubmitButton label={'登録'} handleSubmit={handleSubmit} />
+        <SubmitButton label={'Set'} handleSubmit={handleSubmit} />
       </form>
+      {isLoading ? 'isLoading' : null}
       <TodoContainer todos={storedTodos} userId={userId} />
     </div>
   );

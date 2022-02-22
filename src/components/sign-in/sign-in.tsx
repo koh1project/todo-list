@@ -1,9 +1,11 @@
 import React, { VFC, useState } from 'react';
-import { auth } from 'firebase/firebase.utils';
+import { auth, signInWithGoogle } from 'firebase/firebase.utils';
 import FormInput from '../form-input/form-input';
 import { setCurrentUser } from '../../redux/user/user.actions';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { isFirebaseError } from '../../firebase/firebase.utils';
+
+import './sign-in.scss';
 
 const SignIn: VFC = () => {
   const dispatch = useDispatch();
@@ -20,21 +22,19 @@ const SignIn: VFC = () => {
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
-  const history = useHistory();
-
   const handleSubmit = async (evt: React.FormEvent<HTMLInputElement>) => {
     evt.preventDefault();
-    console.log(userCredentials);
-    // TODO: Login to firebase
+    setError('');
+
     try {
       const { user } = await auth.signInWithEmailAndPassword(email, password);
-
       if (user) {
         dispatch(setCurrentUser(user.uid));
-        history.push('/');
       }
-    } catch (err) {
-      setError(err.message);
+    } catch (error: unknown) {
+      if (isFirebaseError(error)) {
+        setError(error.message);
+      }
     }
   };
 
@@ -46,12 +46,12 @@ const SignIn: VFC = () => {
     const { user } = await auth.signInWithEmailAndPassword('test@gmail.com', 'aaaaaa');
     if (user) {
       dispatch(setCurrentUser(user.uid));
-      history.push('/');
     }
   };
 
   return (
     <div>
+      <h3>Sign In</h3>
       {error}
       <FormInput name="email" type="text" value={email} handleChange={handleChange} label="email"></FormInput>
       <FormInput
@@ -63,10 +63,10 @@ const SignIn: VFC = () => {
       ></FormInput>
       <div>
         <input type="submit" value="TestSubmit" onClick={(evt) => TestHandleSubmit(evt)} />
-        <input type="submit" value="submit" onClick={(evt) => handleSubmit(evt)} />
+        <input type="submit" value="Sign In" onClick={(evt) => handleSubmit(evt)} className="sign-in-btn" />
       </div>
       <div>
-        <button>google signin</button>
+        <button onClick={signInWithGoogle} className="sign-in-btn">Google Signin</button>
       </div>
     </div>
   );
