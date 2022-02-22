@@ -5,6 +5,8 @@ import { setCurrentUser } from '../../redux/user/user.actions';
 import { useDispatch } from 'react-redux';
 import { isFirebaseError } from '../../firebase/firebase.utils';
 
+import './sign-in.scss';
+
 const SignIn: VFC = () => {
   const dispatch = useDispatch();
   const [userCredentials, setUserCredentials] = useState({
@@ -19,7 +21,6 @@ const SignIn: VFC = () => {
     const { name, value } = event.target;
     setUserCredentials({ ...userCredentials, [name]: value });
   };
-
 
   const handleSubmit = async (evt: React.FormEvent<HTMLInputElement>) => {
     evt.preventDefault();
@@ -62,10 +63,10 @@ const SignIn: VFC = () => {
       ></FormInput>
       <div>
         <input type="submit" value="TestSubmit" onClick={(evt) => TestHandleSubmit(evt)} />
-        <input type="submit" value="Sign In" onClick={(evt) => handleSubmit(evt)} />
+        <input type="submit" value="Sign In" onClick={(evt) => handleSubmit(evt)} className="sign-in-btn" />
       </div>
       <div>
-        <button onClick={signInWithGoogle}>google signin</button>
+        <button onClick={signInWithGoogle} className="sign-in-btn">Google Signin</button>
       </div>
     </div>
   );

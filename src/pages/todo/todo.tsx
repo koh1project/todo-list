@@ -12,6 +12,8 @@ import { SubmitButton } from 'components/Button/SubmitButton';
 import { TodoContainer } from 'containers/todoContainer/todoContainer';
 import { auth } from 'firebase/firebase.utils';
 
+import './todo.scss';
+
 export const TodoPage: VFC = () => {
   const [dueDate, setDueDate] = useState<Date>(new Date());
   const [description, setDescription] = useState<string>('');
@@ -42,7 +44,7 @@ export const TodoPage: VFC = () => {
   };
 
   return (
-    <div>
+    <div className='todo-page'>
       <h1>Todo Page</h1>
       <button onClick={onClickSignOut}>Logout</button>
       <form>

@@ -31,10 +31,12 @@ const App: VFC = () => {
   });
 
   const routes = (
-    <Switch>
-      <Route path={'/login'} component={Login} exact />
-      <Route exact path="/" render={() => (userId ? <TodoPage /> : <Redirect to="/login" />)} />
-    </Switch>
+    <div className="wrapper">
+      <Switch>
+        <Route path={'/login'} component={Login} exact />
+        <Route exact path="/" render={() => (userId ? <TodoPage /> : <Redirect to="/login" />)} />
+      </Switch>
+    </div>
   );
   return <div className="App">{routes}</div>;
 };

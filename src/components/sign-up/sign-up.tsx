@@ -7,6 +7,8 @@ import { auth, createUserProfileDocument } from 'firebase/firebase.utils';
 import { setCurrentUser } from '../../redux/user/user.actions';
 import { isFirebaseError } from '../../firebase/firebase.utils';
 
+import './sign-up.scss';
+
 const SignUp: VFC = () => {
   const dispatch = useDispatch();
   const [userCredentials, setUserCredentials] = useState({
@@ -49,7 +51,7 @@ const SignUp: VFC = () => {
       <form>
         <FormInput name="email" type="text" value={email} handleChange={handleChange} label="email"></FormInput>
         <FormInput name="password" type="password" handleChange={handleChange} value={password} label="password" />
-        <input type="submit" value="Sign Up" onClick={(evt) => handleSubmit(evt)} />
+        <input type="submit" value="Sign Up" onClick={(evt) => handleSubmit(evt)} className="sign-up-btn"/>
       </form>
     </div>
   );
