@@ -30,7 +30,7 @@ export const TodoContainer: VFC<TodoContainerProps> = (props) => {
 
   return (
     <div>
-      <TodoList label={'Todo List'} todos={todos} userId={userId} />
+      <TodoList label={'Todo List'} todos={todos} userId={userId}  />
       <CompletedList completedTodos={completed} userId={userId} />
     </div>
   );
