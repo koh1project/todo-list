@@ -1,12 +1,16 @@
 .todo-page {
   align-self: start;
   padding: 1rem;
+  width: 80%;
 }
 
 form {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.5rem;
+}
+input {
+  max-width: 50vw;
 }
 
 .submit-btn {

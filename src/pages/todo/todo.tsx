@@ -59,7 +59,7 @@ export const TodoPage: VFC = () => {
         />
         <label htmlFor="due-date">Due Date:</label>
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} name="due-date" />
-        <SubmitButton label={'Set'} handleSubmit={handleSubmit} />
+        <SubmitButton label={'Set'} handleSubmit={handleSubmit} className="submit-btn" />
       </form>
       {isLoading ? 'isLoading' : null}
       <TodoContainer todos={storedTodos} userId={userId} />
