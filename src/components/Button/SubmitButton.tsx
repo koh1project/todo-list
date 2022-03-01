@@ -4,5 +4,5 @@ export type SubmitButtonProps = {
   label: string;
 };
 export const SubmitButton: VFC<SubmitButtonProps> = (props) => (
-  <input type="submit" value={props.label} onClick={(event) => props.handleSubmit(event)} />
+  <input className='submit-btn'  type="submit" value={props.label} onClick={(event) => props.handleSubmit(event)} />
 );

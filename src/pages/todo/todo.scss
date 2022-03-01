@@ -1,3 +1,26 @@
 .todo-page {
-	align-self: start;
+  align-self: start;
+  padding: 1rem;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.submit-btn {
+  margin-top: 1rem;
+  transition: all 0.1s;
+  transform: translateY(0) scale(1);
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+.submit-btn:hover {
+  transform: translateY(-0.5px) scale(1.01);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.submit-btn:active {
+  transform: translateY(-0.2px) scale(0.98);
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
 }
