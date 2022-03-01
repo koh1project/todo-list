@@ -13,6 +13,7 @@ import { TodoContainer } from 'containers/todoContainer/todoContainer';
 import { auth } from 'firebase/firebase.utils';
 
 import './todo.scss';
+import { RotatingLines } from 'react-loader-spinner';
 
 export const TodoPage: VFC = () => {
   const [dueDate, setDueDate] = useState<Date>(new Date());
@@ -61,7 +62,7 @@ export const TodoPage: VFC = () => {
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} name="due-date" />
         <SubmitButton label={'Set'} handleSubmit={handleSubmit} className="submit-btn" />
       </form>
-      {isLoading ? 'isLoading' : null}
+      {isLoading ? <RotatingLines width='100'></RotatingLines> : null}
       <TodoContainer todos={storedTodos} userId={userId} />
     </div>
   );
