@@ -10,7 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import FormInput from '../form-input/form-input';
 import { SubmitButton } from 'components/Button/SubmitButton';
 
-import './editableTodoListItem.css';
+import './editableTodoListItem.scss';
 
 type EditableTodoListItemProps = {
   todo: Todo;
@@ -55,7 +55,7 @@ export const EditableTodoListItem: VFC<EditableTodoListItemProps> = ({ todo, cli
           value={description}
         />
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
-        <SubmitButton label={'編集'} handleSubmit={handleSubmit} />
+        <SubmitButton label={'Edit'} handleSubmit={handleSubmit} className="edit-btn"/>
       </form>
     </div>
   );
