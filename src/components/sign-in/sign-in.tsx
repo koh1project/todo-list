@@ -74,7 +74,7 @@ const SignIn: VFC = () => {
       </div>
       <div>
         <button onClick={signInWithGoogle} className="sign-in-btn">
-          Google Signin
+          Sign In with Google Account
         </button>
         <input
           type="submit"
