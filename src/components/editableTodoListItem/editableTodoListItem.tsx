@@ -46,16 +46,17 @@ export const EditableTodoListItem: VFC<EditableTodoListItemProps> = ({ todo, cli
   };
 
   return (
-    <div key={todo.id}>
+    <div key={todo.id} className={'edit-item'}>
       <form className={'EditableTodoListItem'}>
         <FormInput
           type="text"
           name={EventTargets.description}
           handleChange={handleChangeDescription}
           value={description}
+          className={'edit-item__todo-text'}
         />
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
-        <SubmitButton label={'Edit'} handleSubmit={handleSubmit} className="edit-btn"/>
+        <SubmitButton label={'Edit'} handleSubmit={handleSubmit} className="edit-btn" />
       </form>
     </div>
   );
