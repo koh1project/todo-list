@@ -6,6 +6,8 @@ import { Todo } from 'redux/todo/todo.actions';
 import { updateTodosStartAsync } from 'redux/todo/todo.actions';
 import { formattedDateString } from 'utils';
 
+import './completedTodoListItem.scss';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
@@ -35,17 +37,19 @@ export const CompletedTodoListItem: VFC<CompletedTodoListItemProps> = ({ todo, u
   };
 
   return (
-    <div key={Math.random()}>
+    <div key={Math.random()} className={'completed-list__item'}>
       <span>
         {todo.description} - {formattedDateString(todo.dueDate)}
       </span>
-      <button onClick={() => onClickCheckBox(todo)}>
-        <FontAwesomeIcon icon={trashIconDefinition} />
-      </button>
-      <button onClick={() => handlerOnClick(todo)}>
-        {/* <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" /> */}
-        <FontAwesomeIcon icon={returnIconDefinition} />
-      </button>
+      <div className="icon-container">
+        <button onClick={() => onClickCheckBox(todo)}>
+          <FontAwesomeIcon icon={trashIconDefinition} />
+        </button>
+        <button onClick={() => handlerOnClick(todo)}>
+          {/* <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-left" /> */}
+          <FontAwesomeIcon icon={returnIconDefinition} />
+        </button>
+      </div>
     </div>
   );
 };
