@@ -8,9 +8,19 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import FormInput from '../form-input/form-input';
-import { SubmitButton } from 'components/Button/SubmitButton';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+
+import { IconLookup, IconDefinition, findIconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import './editableTodoListItem.scss';
+
+library.add(fas);
+
+const editLookup: IconLookup = { prefix: 'fas', iconName: 'edit' };
+const penIconDefinition: IconDefinition = findIconDefinition(editLookup);
 
 type EditableTodoListItemProps = {
   todo: Todo;
@@ -24,15 +34,16 @@ const EventTargets = {
 } as const;
 
 export const EditableTodoListItem: VFC<EditableTodoListItemProps> = ({ todo, clicked, userId }) => {
+  console.log('clicked: ', clicked);
   const dispatch = useDispatch();
 
   const [description, setDescription] = useState<string>(todo.description);
   const [dueDate, setDueDate] = useState<Date>(new Date(todo.dueDate as Date));
   const todos = useSelector((state: RootState) => state.todo.todos);
 
-  const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     clicked(false);
+
     const newTodo = {
       ...todo,
       description: description,
@@ -42,12 +53,13 @@ export const EditableTodoListItem: VFC<EditableTodoListItemProps> = ({ todo, cli
   };
   const handleChangeDescription = (event: any) => {
     event.preventDefault();
+
     setDescription(event.target.value);
   };
 
   return (
     <div key={todo.id} className={'edit-item'}>
-      <form className={'EditableTodoListItem'}>
+      <div className={'EditableTodoListItem'}>
         <FormInput
           type="text"
           name={EventTargets.description}
@@ -56,8 +68,11 @@ export const EditableTodoListItem: VFC<EditableTodoListItemProps> = ({ todo, cli
           className={'edit-item__todo-text'}
         />
         <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
-        <SubmitButton label={'Edit'} handleSubmit={handleSubmit} className="edit-btn" />
-      </form>
+        <button onClick={() => handleSubmit()}>
+          <FontAwesomeIcon icon={penIconDefinition} />
+          {/* <SubmitButton label={'Edit'} handleSubmit={handleSubmit} className="edit-btn" /> */}
+        </button>
+      </div>
     </div>
   );
 };
