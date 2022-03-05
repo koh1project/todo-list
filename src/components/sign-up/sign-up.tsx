@@ -49,9 +49,23 @@ const SignUp: VFC = () => {
       <h3>Sign Up</h3>
       {error}
       <form>
-        <FormInput name="email" type="text" value={email} handleChange={handleChange} label="email"></FormInput>
-        <FormInput name="password" type="password" handleChange={handleChange} value={password} label="password" />
-        <input type="submit" value="Sign Up" onClick={(evt) => handleSubmit(evt)} className="sign-up-btn"/>
+        <FormInput
+          name="email"
+          type="text"
+          value={email}
+          handleChange={handleChange}
+          label="email"
+          className="signup-input"
+        ></FormInput>
+        <FormInput
+          name="password"
+          type="password"
+          handleChange={handleChange}
+          value={password}
+          label="password"
+          className="signup-input"
+        />
+        <input type="submit" value="Sign Up" onClick={(evt) => handleSubmit(evt)} className="sign-up-btn" />
       </form>
     </div>
   );
