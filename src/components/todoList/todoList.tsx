@@ -5,6 +5,8 @@ import { RootState } from 'redux/root-reducer';
 import { Todo, updateTodosStartAsync } from 'redux/todo/todo.actions';
 import { TodoListItem } from 'components/todoListItem/todoListItem';
 
+import './todoList.scss';
+
 type TodoListProps = {
   userId: string;
   label: string;
@@ -21,11 +23,13 @@ export const TodoList: VFC<TodoListProps> = ({ label, userId, todos }) => {
   };
 
   return (
-    <div>
+    <div className="todo-list-container ">
       <h2>{label}</h2>
-      {todos.map((todo) => (
-        <TodoListItem todo={todo} key={Math.random()} userId={userId} onClickCheckBox={handlerOnClick} />
-      ))}
+      <div className="todo-list">
+        {todos.map((todo) => (
+          <TodoListItem todo={todo} key={Math.random()} userId={userId} onClickCheckBox={handlerOnClick} />
+        ))}
+      </div>
     </div>
   );
 };
