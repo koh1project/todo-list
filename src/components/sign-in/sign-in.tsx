@@ -53,20 +53,35 @@ const SignIn: VFC = () => {
     <div>
       <h3>Sign In</h3>
       {error}
-      <FormInput name="email" type="text" value={email} handleChange={handleChange} label="email"></FormInput>
+      <FormInput
+        name="email"
+        type="text"
+        value={email}
+        handleChange={handleChange}
+        label="email"
+        className="signin-input"
+      ></FormInput>
       <FormInput
         name="password"
         type="password"
         handleChange={handleChange}
         value={password}
         label="password"
+        className="signin-input"
       ></FormInput>
       <div>
-        <input type="submit" value="TestSubmit" onClick={(evt) => TestHandleSubmit(evt)} />
         <input type="submit" value="Sign In" onClick={(evt) => handleSubmit(evt)} className="sign-in-btn" />
       </div>
       <div>
-        <button onClick={signInWithGoogle} className="sign-in-btn">Google Signin</button>
+        <button onClick={signInWithGoogle} className="sign-in-btn">
+          Google Signin
+        </button>
+        <input
+          type="submit"
+          value="Test User Sign In"
+          onClick={(evt) => TestHandleSubmit(evt)}
+          className="test-sign-in"
+        />
       </div>
     </div>
   );

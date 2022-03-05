@@ -13,8 +13,8 @@ export interface FormInputProps {
 const FormInput: VFC<FormInputProps> = ({ handleChange, label, className, ...props }) => {
   return (
     <div className={className}>
-      <input {...props} onChange={(evt) => handleChange(evt)} placeholder={props.name}></input>
       {label ? <label>{label}</label> : null}
+      <input {...props} onChange={(evt) => handleChange(evt)} placeholder={props.name}></input>
     </div>
   );
 };
