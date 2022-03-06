@@ -37,6 +37,7 @@ export const fetchTodoFailure = (errorMessage: string): TodoAction => ({
 export const fetchTodosStartAsync = (useId: string) => {
   return (dispatch: Dispatch<TodoAction>) => {
     const todosRef = firestore.collection('users').doc(useId);
+    // const todosRef = firestore.collection('Todos').doc(useId).collection('indivisual-todos');
     dispatch(fetchTodoStart());
 
     todosRef
@@ -45,6 +46,11 @@ export const fetchTodosStartAsync = (useId: string) => {
         const todos: Todo[] = (snapshot.data()!.todos as TodoFirebase[]).map((todo) => {
           return { ...todo, dueDate: todo.dueDate.toDate() };
         });
+
+        // const todos: Todo[] = snapshot.docs.map((doc) => {
+        //   const todo = doc.data();
+        //   return { ...todo, dueDate: todo.dueDate.toDate(), id: doc.id } as Todo;
+        // });
 
         return dispatch(fetchTodoSuccess(todos));
       })

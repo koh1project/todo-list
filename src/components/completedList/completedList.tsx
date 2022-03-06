@@ -21,7 +21,7 @@ export const CompletedList: VFC<CompletedListProps> = ({ completedTodos, userId 
   };
 
   return (
-    <div>
+    <div className='completed-list'>
       <h2>Completed List</h2>
       {completedTodos.map((todo) => (
         <CompletedTodoListItem todo={todo} key={Math.random()} userId={userId} onClickCheckBox={handlerOnClick} />

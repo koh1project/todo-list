@@ -13,6 +13,7 @@ import { TodoContainer } from 'containers/todoContainer/todoContainer';
 import { auth } from 'firebase/firebase.utils';
 
 import './todo.scss';
+import { RotatingLines } from 'react-loader-spinner';
 
 export const TodoPage: VFC = () => {
   const [dueDate, setDueDate] = useState<Date>(new Date());
@@ -44,11 +45,11 @@ export const TodoPage: VFC = () => {
   };
 
   return (
-    <div className='todo-page'>
+    <div className="todo-page">
       <h1>Todo Page</h1>
       <button onClick={onClickSignOut}>Logout</button>
       <form>
-        <label htmlFor="description">Todo Item</label>
+        <label htmlFor="description">Todo Item:</label>
         <input
           type="text"
           name="description"
@@ -57,10 +58,11 @@ export const TodoPage: VFC = () => {
           onChange={(evt) => setDescription(evt.target.value)}
           value={description}
         />
-        <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} />
-        <SubmitButton label={'Set'} handleSubmit={handleSubmit} />
+        <label htmlFor="due-date">Due Date:</label>
+        <DatePicker selected={dueDate} onChange={(date) => setDueDate(date as Date)} name="due-date" />
+        <SubmitButton label={'Set'} handleSubmit={handleSubmit} className="submit-btn" />
       </form>
-      {isLoading ? 'isLoading' : null}
+      {isLoading ? <RotatingLines width='100'></RotatingLines> : null}
       <TodoContainer todos={storedTodos} userId={userId} />
     </div>
   );

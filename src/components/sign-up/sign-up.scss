@@ -1,7 +1,7 @@
 .sign-up-btn {
   display: block;
   padding: 0.5rem;
-  margin: 1rem;
+  margin: 1rem 0;
 
   background-color: rgba(123, 100, 255, 0.6);
   transition: all 0.2s;
@@ -14,4 +14,10 @@
     transform: translateY(-1px);
     box-shadow: 0px 5px 2px black;
   }
+}
+.signup-input {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
 }

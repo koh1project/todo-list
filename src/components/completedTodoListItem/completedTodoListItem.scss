@@ -1,0 +1,15 @@
+.completed-list__item {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+
+  border: 1px solid black;
+  padding: 0.3rem;
+}
+.icon-container {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 0.3rem;
+}
